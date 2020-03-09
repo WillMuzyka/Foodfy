@@ -1,0 +1,21 @@
+@import "/color.css";
+
+body .text-about h1 {
+	font-size: 24px;
+	line-height: 28px;
+	margin: 20px 0;
+}
+
+body .text-about p {
+	color: var(--color-letter-about-text);
+	font-size: 18px;
+	line-height: 28px;
+	margin-bottom: 10px;
+	white-space: pre-line;
+}
+
+body .text-about h2 {
+	font-size: 20px;
+	line-height: 24px;
+	margin: 20px 0;
+}
