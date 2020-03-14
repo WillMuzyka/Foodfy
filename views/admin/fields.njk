@@ -1,0 +1,51 @@
+<div class="recipe">
+  <button class="submit-form" type="submit">Salvar receita</button>
+
+  <div class="item">
+    <div>Nome da Receita</div>
+    <div>
+      <input required type="text" name="title" placeholder="Nome da Receita" value="{{ recipe.title }}">
+    </div>
+  </div>
+
+  <div class="item">
+    <div>URL da imagem</div>
+    <div>
+      <input required type="url" name="image" placeholder="http://" value="{{ recipe.image }}">
+    </div>
+  </div>
+
+  <div id="ingredients" class="item">
+    <div>Ingredientes</div>
+    {% for ingredient in recipe.ingredients %}
+      <div class="ingredient">
+        <input type="text" name="ingredients[]" placeholder="Ingredientes" value="{{ ingredient }}">
+      </div>
+    {% endfor %}
+      <div class="ingredient">
+        <input type="text" name="ingredients[]" placeholder="Ingredientes" value="">
+      </div>
+    <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+  </div>
+
+  <div id="preparation" class="item">
+    <div>Modo de Preparo</div>
+    {% for step in recipe.preparation %}
+      <div class="step">
+        <input type="text" name="preparation[]" placeholder="Passo" value="{{ step }}">
+      </div>
+    {% endfor %}
+      <div class="step">
+        <input type="text" name="preparation[]" placeholder="Passo" value="">
+      </div>
+    <button type="button" class="add-step">Adicionar novo passo</button>
+  </div>
+
+  <div id="information" class="item">
+    <div>Informações adicionais</div>
+      <div>
+        <textarea name="information" cols="30" rows="10" placeholder="Informações Adicionais">{{ recipe.information }}</textarea>
+      </div>
+    </div>
+  </div>
+</div>

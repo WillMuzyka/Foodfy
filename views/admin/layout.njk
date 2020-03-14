@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="/styles/global.css">
+    {% block styles %}
+      <title>Foodfy</title>
+    {% endblock %}
+  </head>
+
+  <body id="admin">
+    <header>
+      <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+      <p>Todos direitos reservados, receitas Foodfy.</p>
+    </footer>
+  </body>
+</html>
