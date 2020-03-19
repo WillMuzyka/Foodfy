@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="/styles/admin/global.css">
+    {% block styles %}
+      <title>Admin - Foodfy</title>
+    {% endblock %}
+  </head>
+
+  <body id="admin">
+    <header>
+      <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
+      <div class="links">
+        <a href="/admin/recipes">Receitas</a>
+        <a href="/admin/chefs">Chefs</a>
+      </div>
+      {% block searchBlock %}
+      {% endblock %}
+    </header>
+
+    <div class="main">
+    {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+      <p>Todos direitos reservados, receitas Foodfy.</p>
+    </footer>
+  </body>
+  <script src="/scripts/currentPage.js"></script>
+</html>

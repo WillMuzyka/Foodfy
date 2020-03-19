@@ -1,0 +1,131 @@
+@import "../color.css";
+
+.chefs {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
+}
+
+.chef {
+	display: grid;
+	grid-template-columns: 64px 1fr;
+	grid-gap: 10px;
+	margin-bottom: 10px;
+}
+
+.chef img {
+	height: 64px;
+	width: 64px;
+	border-radius: 50%;
+	align-self: center;
+	object-fit: cover;
+}
+
+.chef .chef-info {
+	align-self: center;
+}
+
+.chef .chef-name {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.chef .publications {
+	color: var(--color-letter-subinfo);
+	font-size: 14px;
+}
+
+.chef .editChef {
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	color: var(--color-button);
+}
+
+.chef .editChef:hover {
+	filter: brightness(0.5);
+	border-bottom: 1px solid var(--color-button);
+}
+
+/* CHEF */
+.complete {
+	display: grid;
+	grid-template-columns: 1fr;
+	position: relative;
+}
+
+.complete .chef-details .avatar {
+	display: block;
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	margin: 24px auto;
+	object-fit: cover;
+}
+
+.complete .top-info {
+	margin: 30px 0 30px;
+}
+
+.complete .top-info h1 {
+	font-size: 36px;
+	line-height: 42px;
+	text-align: center;
+}
+
+.complete .top-info p {
+	font-size: 20px;
+	line-height: 24px;
+	color: var(--color-letter-subinfo);
+	text-align: center;
+}
+
+.complete h2 {
+	font-size: 24px;
+	line-height: 28px;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.complete .chef-edit {
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: 1fr 250px;
+}
+
+.complete .chef-edit a,
+button.delete,
+button.submit-form {
+	text-align: right;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--color-button);
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	margin-left: auto;
+	cursor: pointer;
+}
+
+.complete .recipeOwned {
+	grid-gap: 20px;
+	display: grid;
+	grid-template-columns: 150px 1fr;
+	align-items: center;
+}
+
+.complete .recipeOwned .recipe-author {
+	font-size: 14px;
+	color: #777;
+	margin: 5px 0 10px;
+}
+
+.complete .recipeOwned a {
+	text-decoration: none;
+	color: var(--color-button);
+}
+
+.complete .recipeOwned a:hover {
+	filter: brightness(0.5);
+}

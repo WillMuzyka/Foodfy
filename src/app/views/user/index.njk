@@ -1,0 +1,38 @@
+{% extends "user/layout.njk" %}
+
+{% block styles %}
+  <title>Receitas - Foodfy</title>
+  <link rel="stylesheet" href="/styles/user/recipes.css">
+{% endblock %}
+
+{% block searchBlock %}
+<form action="/recipes" method="GET">
+  <input type="text" name="filter" placeholder="Buscar uma receita" value="{{ filter }}">
+  <button class="filterButton" type="submit">Buscar</button>
+</form>
+{% endblock %}
+
+{% block content %}
+  {% if filter %}
+  <h2>Buscando por "{{ filter }}"</h2>
+  {% endif %}
+
+  <section class="recipes">
+    {% for recipe in recipes %}
+      <div class="recipe" id="{{ recipe.id }}">
+        <img src="{{ recipe.image }}" alt="ilustrative img">
+        <p class="recipe-name">{{ recipe.title }}</p>
+        <p class="recipe-author">por
+          {{ recipe.author }}</p>
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="pagination"
+  data-page={{ page }}
+  data-total={{ total }}
+  data-filter={{ filter }}>
+  </div>
+
+  <script src="/scripts/paginate.js"></script>
+{% endblock %}

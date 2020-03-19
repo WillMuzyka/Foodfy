@@ -1,0 +1,39 @@
+{% extends "admin/layout.njk" %}
+
+{% block styles %}
+  <title>Admin - Foodfy</title> 
+  <link rel="stylesheet" href="/styles/admin/chefs.css">
+{% endblock %}
+
+{% block searchBlock %}
+<form action="/admin/chefs" method="GET">
+  <input type="text" name="filter" placeholder="Buscar um chef">
+  <button class="filterButton" type="submit">Buscar</button>
+</form>
+{% endblock %}
+
+{% block content %}
+  <div class="manager">
+    <h1>Gerenciar Chefs {% if filter %} - Buscando por "{{ filter }}"{% endif %}</h1>
+    <a class="newButton" href="/admin/chefs/create">Novo chef</a>
+  </div>
+  <section class="chefs">
+    {% for chef in chefs %}
+      <div class="chef">
+        <img src="{{ chef.avatar_url }}" alt="chef img">
+        <div class="chef-info">
+          <p class="chef-name">{{ chef.name }}</p>
+          <a class="editChef" href="/admin/chefs/{{ chef.id }}">Visualizar</a>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="pagination"
+  data-page={{ page }}
+  data-total={{ total }}
+  data-filter={{ filter }}>
+  </div>
+
+  <script src="/scripts/paginate.js"></script>
+{% endblock %}

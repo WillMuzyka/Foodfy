@@ -1,0 +1,37 @@
+@import "../color.css";
+
+.chefs {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 20px;
+}
+
+.chef {
+	display: grid;
+	grid-template-columns: 64px 1fr;
+	grid-gap: 10px;
+	margin-bottom: 10px;
+}
+
+.chef img {
+	height: 64px;
+	width: 64px;
+	border-radius: 50%;
+	align-self: center;
+	object-fit: cover;
+}
+
+.chef .chef-info {
+	align-self: center;
+}
+
+.chef .chef-name {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+
+.chef .publications {
+	color: var(--color-letter-subinfo);
+	font-size: 14px;
+}

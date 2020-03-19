@@ -1,0 +1,136 @@
+@import "../color.css";
+
+/*RECIPES*/
+body .text-most-accessed {
+	font-size: 24px;
+	line-height: 28px;
+	font-weight: bold;
+}
+
+.recipes {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 20px;
+	cursor: pointer;
+}
+
+.recipes .recipe img {
+	border-radius: 15px;
+	width: 100%;
+}
+
+.recipes .recipe-name {
+	font-size: 18px;
+	line-height: 21px;
+	margin-bottom: 5px;
+}
+
+.recipes .recipe-author {
+	font-size: 14px;
+	line-height: 16px;
+	color: var(--color-letter-subinfo);
+	margin-bottom: 10px;
+}
+
+/* RECIPE */
+.complete {
+	display: grid;
+	grid-template-columns: 1fr;
+	position: relative;
+}
+
+.complete .recipe img {
+	border-radius: 15px;
+	width: 100%;
+	margin-top: 20px;
+}
+
+.complete .top-info {
+	margin: 50px 0 30px;
+}
+
+.complete .top-info h1 {
+	font-size: 36px;
+	line-height: 42px;
+	text-align: center;
+}
+
+.complete .top-info p {
+	font-size: 20px;
+	line-height: 24px;
+	color: var(--color-letter-subinfo);
+	text-align: center;
+}
+
+.complete h2 {
+	font-size: 24px;
+	line-height: 28px;
+	margin-top: 20px;
+}
+
+.complete p.info,
+.complete ul.info {
+	font-size: 18px;
+	line-height: 28px;
+	margin: 20px 0;
+	color: var(--color-letter-about-text);
+	list-style-position: inside;
+	visibility: visible;
+}
+
+.complete .topic.two ul.info {
+	list-style: square;
+	list-style-position: inside;
+}
+
+.complete .showText {
+	margin-left: 8px;
+	font-size: 12px;
+	line-height: 14px;
+	color: var(--color-letter-rights);
+	cursor: pointer;
+}
+
+.complete .topic {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.complete .topic.three .info {
+	white-space: pre-line;
+}
+
+/* FORMATTING */
+.complete .topic.one .showText {
+	margin-right: calc(100% - 190px);
+}
+
+.complete .topic.two .showText {
+	margin-right: calc(100% - 250px);
+}
+
+.complete .topic.three .showText {
+	margin-right: calc(100% - 330px);
+}
+
+.complete .topic.one .showText.hidden {
+	margin-right: calc(100% - 180px);
+}
+
+.complete .topic.two .showText.hidden {
+	margin-right: calc(100% - 240px);
+}
+
+.complete .topic.three .showText.hidden {
+	margin-right: calc(100% - 320px);
+}
+
+/* HIDDEN TEXT */
+
+.complete .info.hidden {
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+}

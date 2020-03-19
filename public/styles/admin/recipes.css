@@ -1,0 +1,180 @@
+@import "../color.css";
+
+/*RECIPES*/
+.recipes.index {
+	grid-gap: 20px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.index .recipe {
+	display: grid;
+	grid-template-columns: 150px 1fr;
+}
+
+.index.recipes img {
+	height: 70px;
+	width: 150px;
+	background-position: center;
+	object-fit: cover;
+	border-radius: 8px;
+}
+
+.index .recipe .recipe-name {
+	font-size: 18px;
+}
+
+.index .recipe .recipe-author {
+	font-size: 14px;
+	color: var(--color-letter-subinfo);
+}
+
+.index .recipe-info {
+	margin-left: 20px;
+}
+
+.index .recipe-info a {
+	font-size: 14px;
+	padding-top: 10px;
+	display: inline-block;
+	text-decoration: none;
+}
+
+/* RECIPE */
+.complete {
+	display: grid;
+	grid-template-columns: 1fr;
+	position: relative;
+}
+
+.complete .recipe img {
+	border-radius: 15px;
+	width: 100%;
+	margin-top: 24px;
+}
+
+.complete .top-info {
+	margin: 50px 0 30px;
+}
+
+.complete .top-info h1 {
+	font-size: 36px;
+	line-height: 42px;
+	text-align: center;
+}
+
+.complete .top-info p {
+	font-size: 20px;
+	line-height: 24px;
+	color: var(--color-letter-subinfo);
+	text-align: center;
+}
+
+.complete h2 {
+	font-size: 24px;
+	line-height: 28px;
+	margin-top: 20px;
+}
+
+.complete p.info,
+.complete ul.info {
+	font-size: 18px;
+	line-height: 28px;
+	margin: 20px 0;
+	color: var(--color-letter-about-text);
+	list-style-position: inside;
+	visibility: visible;
+}
+
+.complete .topic.two ul.info {
+	list-style: square;
+	list-style-position: inside;
+}
+
+.complete .topic.three .info {
+	white-space: pre-line;
+}
+
+.complete .recipe-edit {
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: 1fr 250px;
+}
+
+.complete .recipe-edit a,
+button.delete,
+button.submit-form {
+	text-align: right;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--color-button);
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	margin-left: auto;
+	cursor: pointer;
+}
+
+/* FORM */
+input,
+textarea,
+select {
+	width: 100%;
+	box-sizing: border-box;
+	outline: none;
+	resize: none;
+	border: 1px solid #DDD;
+	padding: 15px 20px;
+	font-size: 16px;
+	color: var(--color-letter);
+}
+
+textarea {
+	font-family: "Roboto", sans-serif;
+	color: var(--color-letter);
+}
+
+.complete .item div:first-child {
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.complete .item div:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.item button {
+	color: var(--color-button);
+	background: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.complete .submit-form {
+	position: absolute;
+	top: 50px;
+	right: 0;
+}
+
+.complete .delete {
+	margin-right: 5px;
+	background-color: #DC4747;
+	position: absolute;
+	right: 136px;
+	top: 50px;
+	cursor: pointer;
+}
+
+select {
+	cursor: pointer;
+}
+
+select:required:invalid {
+	color: var(--color-letter-subinfo);
+}
+
+select option {
+	color: var(--color-letter);
+}

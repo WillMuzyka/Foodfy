@@ -1,0 +1,24 @@
+{% extends "admin/layout.njk" %}
+
+{% block styles %}
+  <title>Admin - Foodfy</title>
+  <link rel="stylesheet" href="/styles/admin/recipes.css">
+{% endblock %}
+
+{% block content %}
+  <section class="complete">
+    <div class="recipe-edit">
+      <h1>Editando: {{ recipe.title }}</h1>
+    </div>
+    <form id="delete-form" action="/admin/recipes?_method=DELETE" method="POST">
+      <input hidden type="text" name="id" value="{{ recipe.id }}"">
+      <button type="submit" class="delete">Deletar</button>
+    </form>
+    <form action="/admin/recipes?_method=PUT" method="POST">
+      {% include "admin/recipes/fields.njk" %}
+      <input hidden type="text" name="id" value="{{ recipe.id }}">
+    </form>
+  </section>
+  <script src="/scripts/addNewNode.js"></script>
+  <script src="/scripts/deleteConfirm.js"></script>
+{% endblock %}
