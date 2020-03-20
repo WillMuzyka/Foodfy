@@ -1,2 +1,2 @@
 # foodfy
- Projeto desenvolvido no curso Bootcamp Launchbase
+ Projeto principal desenvolvido no curso Bootcamp Launchbase
