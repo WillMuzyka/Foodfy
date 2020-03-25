@@ -54,8 +54,6 @@ module.exports = {
 			showDate(Date.now()).iso
 		]
 
-		console.log(values)
-
 		Recipe.create(values, () => {
 			return res.redirect("/admin/recipes")
 		})
