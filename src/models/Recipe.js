@@ -1,17 +1,15 @@
 const db = require("../config/db")
 
 module.exports = {
-	all(callback) {
-		const query = `SELECT recipes.*, chefs.name author
-		FROM recipes
-		LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-		ORDER BY id`
-		db.query(query, (err, results) => {
-			if (err) throw `Database error! ${err}`
-			callback(results.rows)
-		})
+	all() {
+		const query = `
+			SELECT recipes.*, chefs.name author
+			FROM recipes
+			LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+			ORDER BY id`
+		return db.query(query)
 	},
-	create(values, callback) {
+	create(values) {
 		const query = `
 		INSERT INTO recipes(
 			chef_id,
@@ -24,24 +22,18 @@ module.exports = {
 		VALUES ($1, $2, $3, $4, $5, $6, $7)
 		RETURNING id`
 
-		db.query(query, values, (err, results) => {
-			if (err) throw `Database error! ${err}`
-			callback()
-		})
+		db.query(query, values)
 	},
-	find(id, callback) {
+	find(id) {
 		const query = `
 		SELECT recipes.*, chefs.name author
 		FROM recipes
 		LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
 		WHERE recipes.id = $1`
 
-		db.query(query, [id], (err, results) => {
-			if (err) throw `Databaerror! ${err}`
-			callback(results.rows[0])
-		})
+		return db.query(query, [id])
 	},
-	update(values, callback) {
+	update(values) {
 		const query = `
 		UPDATE recipes
 		SET 
@@ -53,34 +45,25 @@ module.exports = {
 			information = ($6)
 		WHERE id = $7`
 
-		db.query(query, values, (err, results) => {
-			if (err) throw `Database error! ${err}`
-			callback()
-		})
+		return db.query(query, values)
 	},
-	delete(id, callback) {
+	delete(id) {
 		const query = `
 		DELETE
 		FROM recipes
 		WHERE id = $1`
 
-		db.query(query, [id], (err, results) => {
-			if (err) throw `Databaerror! ${err}`
-			callback()
-		})
+		return db.query(query, [id])
 	},
-	chefOption(callback) {
+	chefOption() {
 		const query = `
 		SELECT name, id
 		FROM chefs
 		ORDER BY name`
 
-		db.query(query, (err, results) => {
-			if (err) throw `Databaerror! ${err}`
-			callback(results.rows)
-		})
+		return db.query(query)
 	},
-	paginate(params, callback) {
+	paginate(params) {
 		const { filter, limit, offset } = params
 		let filterQuery = ""
 		if (filter) filterQuery = `WHERE recipes.title ILIKE '%${filter}%'`
@@ -97,9 +80,6 @@ module.exports = {
 		${filterQuery}
 		ORDER BY id LIMIT ${limit} OFFSET ${offset}`
 
-		db.query(query, (err, results) => {
-			if (err) throw `Database error! ${err}`
-			callback(results.rows)
-		})
+		return db.query(query)
 	}
 }

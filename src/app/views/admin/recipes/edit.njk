@@ -11,7 +11,7 @@
       <h1>Editando: {{ recipe.title }}</h1>
     </div>
     <form id="delete-form" action="/admin/recipes?_method=DELETE" method="POST">
-      <input hidden type="text" name="id" value="{{ recipe.id }}"">
+      <input hidden type="text" name="id" value="{{ recipe.id }}">
       <button type="submit" class="delete">Deletar</button>
     </form>
     <form action="/admin/recipes?_method=PUT" method="POST">

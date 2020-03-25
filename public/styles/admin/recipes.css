@@ -47,7 +47,7 @@
 	position: relative;
 }
 
-.complete .recipe img {
+.complete .recipe .main-image {
 	border-radius: 15px;
 	width: 100%;
 	margin-top: 24px;
@@ -128,6 +128,7 @@ select {
 	padding: 15px 20px;
 	font-size: 16px;
 	color: var(--color-letter);
+	border-radius: 4px;
 }
 
 textarea {
@@ -135,12 +136,12 @@ textarea {
 	color: var(--color-letter);
 }
 
-.complete .item div:first-child {
+.complete .item>div:first-child {
 	margin-top: 30px;
 	font-weight: bold;
 }
 
-.complete .item div:not(:last-child) {
+.complete .item>div:not(:last-child) {
 	margin-bottom: 10px;
 }
 

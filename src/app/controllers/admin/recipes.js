@@ -20,7 +20,7 @@ module.exports = {
 	home(req, res) {
 		return res.redirect("/admin/recipes")
 	},
-	index: (req, res) => {
+	async index(req, res) {
 		let { filter, page, limit } = req.query
 		page = page || 1
 		limit = limit || 6
@@ -32,18 +32,24 @@ module.exports = {
 			offset
 		}
 
-		Recipe.paginate(params, recipes => {
+		try {
+			const results = await Recipe.paginate(params)
+			const recipes = results.rows
+
 			let total = 1
 			if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
 			res.render('admin/recipes/index', { recipes, filter, page, total })
-		})
+		}
+		catch (err) {
+			throw (err)
+		}
 	},
-	create: (req, res) => {
+	create(req, res) {
 		Recipe.chefOption(chefs => {
 			return res.render("admin/recipes/create", { chefs })
 		})
 	},
-	post: (req, res) => {
+	async post(req, res) {
 		const values = [
 			req.body.chef_id,
 			req.body.image,
@@ -58,19 +64,21 @@ module.exports = {
 			return res.redirect("/admin/recipes")
 		})
 	},
-	show: (req, res) => {
-		Recipe.find(req.params.id, recipe => {
-			res.render('admin/recipes/show', { recipe })
-		})
+	async show(req, res) {
+		const results = await Recipe.find(req.params.id)
+		const recipe = results.rows[0]
+		return res.render('admin/recipes/show', { recipe })
 	},
-	edit: (req, res) => {
-		Recipe.find(req.params.id, recipe => {
-			Recipe.chefOption(chefs => {
-				return res.render("admin/recipes/edit", { recipe, chefs })
-			})
-		})
+	async edit(req, res) {
+		let results = await Recipe.find(req.params.id)
+		const recipe = results.rows[0]
+
+		results = await Recipe.chefOption()
+		const chefs = results.rows
+
+		return res.render("admin/recipes/edit", { recipe, chefs })
 	},
-	put: (req, res) => {
+	async put(req, res) {
 		const values = [
 			req.body.chef_id,
 			req.body.image,
@@ -81,11 +89,11 @@ module.exports = {
 			req.body.id
 		]
 
-		Recipe.update(values, () => {
-			return res.redirect("/admin/recipes")
-		})
+		await Recipe.update(values)
+		return res.redirect("/admin/recipes")
 	},
-	delete: (req, res) => {
-		Recipe.delete(req.body.id, () => res.redirect("/admin/recipes"))
+	async delete(req, res) {
+		await Recipe.delete(req.body.id)
+		return res.redirect("/admin/recipes")
 	}
 }

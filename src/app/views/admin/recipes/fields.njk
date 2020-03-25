@@ -2,28 +2,48 @@
   <button class="submit-form" type="submit">Salvar receita</button>
 
   <div class="item">
+    <div>Imagem da Receita</div>
+
+    <div id="photos-container">
+      <div id="photo-upload">
+        <input
+          type="file"
+          name="files"
+          id="files"
+          multiple
+          onchange="ImageUpload.handleFileInput(event)"
+        >
+
+        <label for="files">
+          <i class="material-icons">add</i>
+        </label>
+
+        <input type="hidden" name="removed-ids" value="">
+      </div>
+      
+      <div id="photo-preview">
+      </div>
+    </div>
+  </div>
+
+  <div class="item">
     <div>Nome da Receita</div>
+
     <div>
       <input required type="text" name="title" placeholder="Nome da Receita" value="{{ recipe.title }}">
     </div>
   </div>
 
   <div class="item">
-      <div>Autor da Receita</div>
-      <div>
-        <select required name="chef_id">
-          <option selected hidden value="">Selecione um autor</option>
-          {% for chef in chefs %}
-            <option value="{{ chef.id }}" {% if chef.id == recipe.chef_id %}selected{% endif %}>{{ chef.name }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
+    <div>Autor da Receita</div>
 
-  <div class="item">
-    <div>URL da imagem</div>
     <div>
-      <input required type="url" name="image" placeholder="http://" value="{{ recipe.image }}">
+      <select required name="chef_id">
+        <option selected hidden value="">Selecione um autor</option>
+        {% for chef in chefs %}
+          <option value="{{ chef.id }}" {% if chef.id == recipe.chef_id %}selected{% endif %}>{{ chef.name }}</option>
+        {% endfor %}
+      </select>
     </div>
   </div>
 

@@ -4,7 +4,7 @@ const page = +pagination.dataset.page
 const filter = pagination.dataset.filter
 
 paginate = (total, page) => {
-	if (total == 1) return
+	if (total == 1) return []
 
 	let pageIndex = [1]
 	if (page == 5) pageIndex.push(2)
