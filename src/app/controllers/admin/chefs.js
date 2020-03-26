@@ -1,4 +1,5 @@
 const Chef = require("../../../models/Chef")
+const File = require("../../../models/File")
 const { showDate } = require("../../../lib/utils")
 
 duplicateChef = (chef) => {
@@ -17,7 +18,7 @@ duplicateChef = (chef) => {
 }
 
 module.exports = {
-	index: (req, res) => {
+	async index(req, res) {
 		let { filter, page, limit } = req.query
 		page = page || 1
 		limit = limit || 12
@@ -28,52 +29,100 @@ module.exports = {
 			limit,
 			offset
 		}
-		Chef.paginate(params, chefs => {
-			let total = 1
-			if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-			res.render('admin/chefs/index', { chefs, filter, page, total })
-		})
+
+		const results = await Chef.paginate(params)
+		let chefs = results.rows
+
+		chefs = chefs.map(chef => ({
+			...chef,
+			src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+		}))
+
+		let total = 1
+		if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
+		res.render('admin/chefs/index', { chefs, filter, page, total })
+
 	},
-	create: (req, res) => {
+	create(req, res) {
 		return res.render("admin/chefs/create")
 	},
-	post: (req, res) => {
+	async post(req, res) {
+		if (req.files.length == 0) return res.send("Envie uma foto de avatar!")
+		const avatar = req.file
+
+		const fileValues = [
+			avatar.filename,
+			avatar.path
+		]
+		let results = await File.create(fileValues)
+		const file_id = results.rows[0].id
+
 		const values = [
 			req.body.name,
-			req.body.avatar_url,
-			showDate(Date.now()).iso
+			file_id
 		]
 
-		Chef.create(values, () => {
-			return res.redirect("/admin/chefs")
-		})
+		results = await Chef.create(values)
+		const id = results.rows[0].id
+		return res.redirect(`/admin/chefs/${id}`)
 	},
-	show: (req, res) => {
-		console.log(`id=${req.params.id}`)
-		Chef.find(req.params.id, chef => {
-			Chef.recipesPublished(chef.id, recipes => {
-				res.render('admin/chefs/show', { chef, recipes })
-			})
-		})
+	async show(req, res) {
+		let results = await Chef.find(req.params.id)
+		if (results.rows[0]) {
+			let chef = results.rows[0]
+			chef = {
+				...chef,
+				src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+			}
+
+			results = await Chef.recipesPublished(chef.id)
+			const recipes = results.rows
+
+			return res.render('admin/chefs/show', { chef, recipes })
+		}
 	},
-	edit: (req, res) => {
-		Chef.find(req.params.id, chef => {
-			res.render('admin/chefs/edit', { chef })
-		})
+	async edit(req, res) {
+		let results = await Chef.find(req.params.id)
+		if (results.rows[0]) {
+			const chef = results.rows[0]
+			results = await File.find(chef.file_id)
+
+			const file = results.rows[0]
+			return res.render('admin/chefs/edit', { chef, file })
+
+		}
+		return res.redirect('/admin/chefs')
 	},
-	put: (req, res) => {
+	async put(req, res) {
+		let results = await Chef.find(req.body.id)
+		let old_file = -1
+		let file_id = results.rows[0].file_id
+
+		const avatar = req.file
+		if (avatar) {
+			old_file = file_id
+
+			const fileValues = [
+				avatar.filename,
+				avatar.path
+			]
+
+			results = await File.create(fileValues)
+			file_id = results.rows[0].id
+		}
+
 		const values = [
 			req.body.name,
-			req.body.avatar_url,
+			file_id,
 			req.body.id
 		]
 
-		Chef.update(values, () => {
-			return res.redirect("/admin/chefs")
-		})
+		await Chef.update(values)
+		await File.delete(old_file)
+		return res.redirect(`/admin/chefs/${req.body.id}`)
 	},
-	delete: (req, res) => {
-		console.log(req.body.id)
-		Chef.delete(req.body.id, () => res.redirect("/admin/chefs"))
+	async delete(req, res) {
+		await Chef.delete(req.body.id)
+		return res.redirect("/admin/chefs")
 	}
 }

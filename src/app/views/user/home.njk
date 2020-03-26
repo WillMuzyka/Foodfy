@@ -26,8 +26,8 @@
 
   <section class="recipes">
     {% for i in range(0, 6) %}
-      <div class="recipe">
-        <img src="{{ recipes[i].image }}" alt="ilustrative img">
+      <div class="recipe" id="{{ recipes[i].id }}">
+        <img src="{{ recipes[i].src }}" alt="ilustrative img">
         <p class="recipe-name">{{ recipes[i].title }}</p>
         <p class="recipe-author">por
           {{ recipes[i].author }}</p>

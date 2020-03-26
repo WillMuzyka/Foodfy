@@ -27,14 +27,14 @@ routes.post('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.
 routes.get('/admin/recipes/:id', adminRecipes.show)
 routes.get('/admin/recipes/:id/edit', adminRecipes.edit)
 routes.put('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.put)
-routes.delete('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.delete)
+routes.delete('/admin/recipes', adminRecipes.delete)
 /* chefs */
 routes.get('/admin/chefs', adminChefs.index)
 routes.get('/admin/chefs/create', adminChefs.create)
-routes.post('/admin/chefs', adminChefs.post)
+routes.post('/admin/chefs', multer.single("avatar"), adminChefs.post)
 routes.get('/admin/chefs/:id', adminChefs.show)
 routes.get('/admin/chefs/:id/edit', adminChefs.edit)
-routes.put('/admin/chefs', adminChefs.put)
-routes.delete('/admin/chefs', multer.array("photos", uploadLimit), adminChefs.delete)
+routes.put('/admin/chefs', multer.single("avatar"), adminChefs.put)
+routes.delete('/admin/chefs', adminChefs.delete)
 
 module.exports = routes

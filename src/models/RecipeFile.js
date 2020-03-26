@@ -22,7 +22,8 @@ module.exports = {
 		SELECT files.*
 		FROM recipe_files
 		JOIN files ON (recipe_files.file_id = files.id)
-		WHERE recipe_id = $1`, [recipe_id])
+		WHERE recipe_id = $1
+		ORDER BY recipe_files.id`, [recipe_id])
 	},
 	delete(file_id) {
 		return db.query(`DELETE FROM recipe_files WHERE file_id = $1`, [file_id])

@@ -56,6 +56,23 @@ const ImageUpload = {
 
 		return false
 	},
+	hasMinimum(event) {
+		const { input, preview } = ImageUpload
+
+		let photosDiv = []
+		preview.childNodes.forEach(item => {
+			if (item.classList && item.classList.value == "photo")
+				photosDiv.push(item)
+		})
+		const totalPhotos = photosDiv.length
+		if (totalPhotos == 1) {
+			alert(`Envie no mínimo 1 foto!`)
+			event.preventDefault()
+			return false
+		}
+
+		return true
+	},
 	getAllFiles() {
 		const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
 
@@ -84,13 +101,17 @@ const ImageUpload = {
 		const photosArray = Array.from(ImageUpload.preview.children)
 		const index = photosArray.indexOf(photoDiv)
 
-		ImageUpload.files.splice(index, 1)
-
+		if (!ImageUpload.hasMinimum(event)) return
+		console.log(ImageUpload.files, index)
+		ImageUpload.files.splice(index - 1, 1)
+		console.log(ImageUpload.files)
 		ImageUpload.input.files = ImageUpload.getAllFiles()
 		photoDiv.remove()
 	},
 	removeOldImage(event) {
 		const photoDiv = event.target.parentNode
+
+		if (!ImageUpload.hasMinimum(event)) return
 
 		const removedIdsInput = document.querySelector('input[name="removed_ids"]')
 		removedIdsInput.value += `${photoDiv.id},`
@@ -99,4 +120,25 @@ const ImageUpload = {
 	}
 }
 
+const AvatarUpload = {
+	input: "",
+	handleFileInput(event) {
+		AvatarUpload.input = event.target
+		const { files } = event.target
 
+		const textInput = document.querySelector(".chef #avatar_src")
+		if (textInput) textInput.innerHTML = files[0].name
+	},
+	hasMinimum(event) {
+		const { input } = AvatarUpload
+		const { files: filesList } = input
+
+		if (!filesList) {
+			alert(`Envie no mínimo 1 foto!`)
+			event.preventDefault()
+			return false
+		}
+
+		return true
+	}
+}

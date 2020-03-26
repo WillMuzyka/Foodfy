@@ -149,7 +149,8 @@ button.filterButton {
 	font-size: 24px;
 }
 
-.manager a.newButton {
+.manager a.newButton,
+.chef .item label p {
 	text-align: right;
 	text-decoration: none;
 	font-size: 16px;
@@ -189,13 +190,13 @@ button.filterButton {
 	font-weight: bold;
 }
 
-/* FILE INPUT */
+/* RECIPES FILE INPUT */
 #photos-container {
 	display: flex;
 }
 
 
-#photo-upload input[type='file'] {
+input[type='file'] {
 	display: none
 }
 
@@ -218,7 +219,7 @@ button.filterButton {
 	cursor: pointer;
 }
 
-#photo-upload .item label i {
+#photo-upload label i {
 	font-size: 48px
 }
 
@@ -277,4 +278,16 @@ button.filterButton {
 
 #photo-preview .photo i:hover {
 	opacity: 1;
+}
+
+/* CHEF FILE INPUT */
+.chef .item label p {
+	/*other changes with buttons*/
+	margin-right: auto;
+	display: inline-block;
+}
+
+.chef #avatar_src {
+	color: var(--color-letter-rights);
+	margin-bottom: 10px;
 }

@@ -1,6 +1,4 @@
 <div class="chef">
-  <button class="submit-form" type="submit">Salvar chef</button>
-
   <div class="item">
     <div>Nome do Chef</div>
     <div>
@@ -11,7 +9,19 @@
   <div class="item">
     <div>Avatar</div>
     <div>
-      <input required type="url" name="avatar_url" placeholder="http://" value="{{ chef.avatar_url }}">
+      <input
+        type="file"
+        name="avatar"
+        id="avatar"
+        accept="image/*"
+        onchange="AvatarUpload.handleFileInput(event)"
+      >
+      {% if file %}
+      <p name="avatar_src" id="avatar_src">{{ file.path }}</p>
+      {% endif %}
+      <label for="avatar">
+        <p>Enviar avatar</p>
+      </label>
     </div>
   </div>
 </div>

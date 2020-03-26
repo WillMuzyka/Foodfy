@@ -12,7 +12,24 @@
       <a href="/admin/recipes/{{ recipe.id }}/edit">Editar receita</a>
     </div>
     <div class="recipe">
-      <img class="main-image" src="{{ recipe.image }}" alt="ilustrative img">
+      <div class="recipe-images">
+        <div class="highlight">
+          <img class="main-image" src="{{ files[0].src }}" alt="ilustrative img">
+        </div>
+        <div class="gallery">
+          {% for image in files %}
+          <img
+            src="{{ image.src }}"
+            alt="ilustrative img"
+            {% if loop.index0 == 0 %}
+            class="active"
+            {% endif %}
+            onclick="ImageGallery.setImage(event)"
+          >
+          {% endfor %}
+        </div>
+      </div>
+      
       <div class="top-info">
         <h1>{{ recipe.title }}</p>
         <p>por
@@ -41,3 +58,5 @@
     </div>
   </section>
 {% endblock %}
+
+{% block script %}<script src="/scripts/showInterface.js"></script>{% endblock %}

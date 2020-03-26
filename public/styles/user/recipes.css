@@ -42,6 +42,8 @@ body .text-most-accessed {
 .complete .recipe img {
 	border-radius: 15px;
 	width: 100%;
+	max-height: 280px;
+	object-fit: cover;
 	margin-top: 20px;
 }
 
@@ -133,4 +135,27 @@ body .text-most-accessed {
 	visibility: hidden;
 	position: absolute;
 	top: 0;
+}
+
+/* IMAGE GALLERY */
+.recipe .gallery {
+	display: grid;
+	grid-gap: 8px;
+	float: right;
+}
+
+.recipe .gallery img {
+	width: 50px;
+	height: 50px;
+	border-radius: 4px;
+	object-fit: cover;
+	cursor: pointer;
+	opacity: 0.6;
+
+	transition: opacity 300ms;
+}
+
+.recipe .gallery img:hover,
+.recipe .gallery img.active {
+	opacity: 1
 }

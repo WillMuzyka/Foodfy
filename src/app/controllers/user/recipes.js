@@ -1,16 +1,26 @@
 const Recipe = require("../../../models/Recipe")
+const File = require("../../../models/File")
+const RecipeFile = require("../../../models/RecipeFile")
+
 const aboutText = require("../../about")
 
 module.exports = {
 	async home(req, res) {
-		try {
-			const results = await Recipe.all()
-			const recipes = results.rows
-			return res.render('user/home', { recipes })
-		}
-		catch (err) {
-			throw (err)
-		}
+		let results = await Recipe.all()
+		let recipes = results.rows
+
+		const recipesFilePromises = recipes.map(recipe => {
+			return RecipeFile.find(recipe.id)
+		})
+		results = await Promise.all(recipesFilePromises)
+		const files = results
+
+		recipes = recipes.map((recipe, index) => ({
+			...recipe,
+			src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+		}))
+
+		return res.render('user/home', { recipes })
 	},
 	about(req, res) {
 		return res.render('user/about', { aboutText })
@@ -27,26 +37,34 @@ module.exports = {
 			offset
 		}
 
-		try {
-			const results = await Recipe.paginate(params)
-			const recipes = results.rows
+		let results = await Recipe.paginate(params)
+		let recipes = results.rows
 
-			let total = 1
-			if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
-			return res.render('user/index', { recipes, filter, page, total })
-		}
-		catch (err) {
-			throw (err)
-		}
+		const recipesFilePromises = recipes.map(recipe => {
+			return RecipeFile.find(recipe.id)
+		})
+		results = await Promise.all(recipesFilePromises)
+		const files = results
+
+		recipes = recipes.map((recipe, index) => ({
+			...recipe,
+			src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+		}))
+
+		let total = 1
+		if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
+		return res.render('user/index', { recipes, filter, page, total })
+
 	},
 	async show(req, res) {
-		try {
-			const results = await Recipe.find(req.params.id)
-			const recipe = results.rows[0]
-			return res.render('user/show', { recipe })
-		}
-		catch (err) {
-			throw (err)
-		}
+		let results = await Recipe.find(req.params.id)
+		const recipe = results.rows[0]
+
+		results = await RecipeFile.find(recipe.id)
+		let files = results.rows
+
+		files = addSrcFromPath(files, req)
+
+		return res.render('user/show', { recipe, files })
 	}
 }

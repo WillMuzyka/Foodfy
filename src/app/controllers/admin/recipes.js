@@ -19,6 +19,13 @@ duplicateRecipe = (recipe) => {
 	})
 }
 
+addSrcFromPath = (files, req) => {
+	return files.map(file => ({
+		...file,
+		src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+	}))
+}
+
 module.exports = {
 	home(req, res) {
 		return res.redirect("/admin/recipes")
@@ -35,17 +42,23 @@ module.exports = {
 			offset
 		}
 
-		try {
-			const results = await Recipe.paginate(params)
-			const recipes = results.rows
+		let results = await Recipe.paginate(params)
+		let recipes = results.rows
 
-			let total = 1
-			if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
-			res.render('admin/recipes/index', { recipes, filter, page, total })
-		}
-		catch (err) {
-			throw (err)
-		}
+		const recipesFilePromises = recipes.map(recipe => {
+			return RecipeFile.find(recipe.id)
+		})
+		results = await Promise.all(recipesFilePromises)
+		const files = results
+
+		recipes = recipes.map((recipe, index) => ({
+			...recipe,
+			src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+		}))
+
+		let total = 1
+		if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
+		return res.render('admin/recipes/index', { recipes, filter, page, total })
 	},
 	async create(req, res) {
 		const results = await Recipe.chefOption()
@@ -60,13 +73,8 @@ module.exports = {
 			req.body.title,
 			req.body.ingredients.filter(ingredient => ingredient != ""),
 			req.body.preparation.filter(step => step != ""),
-			req.body.information.replace(/\r/g, ""),
-			showDate(Date.now()).iso
+			req.body.information.replace(/\r/g, "")
 		]
-
-		//create the recipe
-		let results = await Recipe.create(values)
-		const recipe_id = results.rows[0].id
 
 		//create the files
 		const filePromises = req.files.map(file => {
@@ -76,11 +84,15 @@ module.exports = {
 			]
 			return File.create(fileValues)
 		})
-		results = await Promise.all(filePromises)
+		let results = await Promise.all(filePromises)
 
 		//get the files id
 		const fileReturn = results
 		const files_id = fileReturn.map(file => file.rows[0].id).sort()
+
+		//create the recipe
+		results = await Recipe.create(values)
+		const recipe_id = results.rows[0].id
 
 		//create the relation between recipes and files
 		const recipeFilePromises = files_id.map(id => {
@@ -97,9 +109,15 @@ module.exports = {
 
 	},
 	async show(req, res) {
-		const results = await Recipe.find(req.params.id)
+		let results = await Recipe.find(req.params.id)
 		const recipe = results.rows[0]
-		return res.render('admin/recipes/show', { recipe })
+
+		results = await RecipeFile.find(recipe.id)
+		let files = results.rows
+
+		files = addSrcFromPath(files, req)
+
+		return res.render('admin/recipes/show', { recipe, files })
 	},
 	async edit(req, res) {
 		let results = await Recipe.find(req.params.id)
@@ -107,10 +125,8 @@ module.exports = {
 
 		results = await RecipeFile.find(recipe.id)
 		let images = results.rows
-		images = images.map(image => ({
-			...image,
-			src: `${req.protocol}://${req.headers.host}${image.path.replace("public", "")}`
-		}))
+		images = addSrcFromPath(images, req)
+
 		results = await Recipe.chefOption()
 		const chefs = results.rows
 

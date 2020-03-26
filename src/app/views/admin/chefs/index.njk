@@ -20,7 +20,7 @@
   <section class="chefs">
     {% for chef in chefs %}
       <div class="chef">
-        <img src="{{ chef.avatar_url }}" alt="chef img">
+        <img src="{{ chef.src }}" alt="chef img">
         <div class="chef-info">
           <p class="chef-name">{{ chef.name }}</p>
           <a class="editChef" href="/admin/chefs/{{ chef.id }}">Visualizar</a>
