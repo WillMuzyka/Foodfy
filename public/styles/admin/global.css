@@ -194,6 +194,7 @@ button.filterButton {
 	display: flex;
 }
 
+
 #photo-upload input[type='file'] {
 	display: none
 }

@@ -1,4 +1,7 @@
 const Recipe = require("../../../models/Recipe")
+const File = require("../../../models/File")
+const RecipeFile = require("../../../models/RecipeFile")
+
 const { showDate } = require("../../../lib/utils")
 
 duplicateRecipe = (recipe) => {
@@ -44,15 +47,16 @@ module.exports = {
 			throw (err)
 		}
 	},
-	create(req, res) {
-		Recipe.chefOption(chefs => {
-			return res.render("admin/recipes/create", { chefs })
-		})
+	async create(req, res) {
+		const results = await Recipe.chefOption()
+		const chefs = results.rows
+
+		return res.render("admin/recipes/create", { chefs })
 	},
 	async post(req, res) {
+		if (req.files.length == 0) return res.send("Envie uma foto no mínimo!")
 		const values = [
 			req.body.chef_id,
-			req.body.image,
 			req.body.title,
 			req.body.ingredients.filter(ingredient => ingredient != ""),
 			req.body.preparation.filter(step => step != ""),
@@ -60,9 +64,37 @@ module.exports = {
 			showDate(Date.now()).iso
 		]
 
-		Recipe.create(values, () => {
-			return res.redirect("/admin/recipes")
+		//create the recipe
+		let results = await Recipe.create(values)
+		const recipe_id = results.rows[0].id
+
+		//create the files
+		const filePromises = req.files.map(file => {
+			const fileValues = [
+				file.filename,
+				file.path
+			]
+			return File.create(fileValues)
 		})
+		results = await Promise.all(filePromises)
+
+		//get the files id
+		const fileReturn = results
+		const files_id = fileReturn.map(file => file.rows[0].id).sort()
+
+		//create the relation between recipes and files
+		const recipeFilePromises = files_id.map(id => {
+			const recipeFileValues = [
+				recipe_id,
+				id
+			]
+			return RecipeFile.create(recipeFileValues)
+		})
+		await Promise.all(recipeFilePromises)
+
+
+		return res.redirect(`/admin/recipes/${recipe_id}`)
+
 	},
 	async show(req, res) {
 		const results = await Recipe.find(req.params.id)
@@ -73,26 +105,85 @@ module.exports = {
 		let results = await Recipe.find(req.params.id)
 		const recipe = results.rows[0]
 
+		results = await RecipeFile.find(recipe.id)
+		let images = results.rows
+		images = images.map(image => ({
+			...image,
+			src: `${req.protocol}://${req.headers.host}${image.path.replace("public", "")}`
+		}))
 		results = await Recipe.chefOption()
 		const chefs = results.rows
 
-		return res.render("admin/recipes/edit", { recipe, chefs })
+		return res.render("admin/recipes/edit", { recipe, images, chefs })
 	},
 	async put(req, res) {
+		const { id: recipe_id, removed_ids } = req.body
+
 		const values = [
 			req.body.chef_id,
-			req.body.image,
 			req.body.title,
 			req.body.ingredients.filter(ingredient => ingredient != ""),
 			req.body.preparation.filter(step => step != ""),
 			req.body.information.replace(/\r/g, ""),
-			req.body.id
+			recipe_id
 		]
 
-		await Recipe.update(values)
-		return res.redirect("/admin/recipes")
+		//update the recipe
+		let results = await Recipe.update(values)
+
+		//create new files, if there are any
+		if (req.files && req.files.length > 0) {
+			const filePromises = req.files.map(file => {
+				const fileValues = [
+					file.filename,
+					file.path
+				]
+				return File.create(fileValues)
+			})
+			results = await Promise.all(filePromises)
+
+			//get the files id
+			const fileReturn = results
+			const files_id = fileReturn.map(file => file.rows[0].id).sort()
+
+			//create the relation between recipes and files
+			const recipeFilePromises = files_id.map(id => {
+				const recipeFileValues = [
+					recipe_id,
+					id
+				]
+				return RecipeFile.create(recipeFileValues)
+			})
+			await Promise.all(recipeFilePromises)
+		}
+
+		//delete the files, if there are any to delete
+		if (removed_ids) {
+			let removedIdArray = req.body.removed_ids.split(",")
+			removedIdArray.splice(-1, 1)
+			removedIdArray = removedIdArray.map(id => Number(id))
+
+			//delete first the recipe_files line, because of FK
+			const recipeFilesPromises = removedIdArray.map(id => RecipeFile.delete(id))
+			await Promise.all(recipeFilesPromises)
+
+			//delete the files
+			const filesPromises = removedIdArray.map(id => File.delete(id))
+			await Promise.all(filesPromises)
+		}
+
+		return res.redirect(`/admin/recipes/${recipe_id}`)
 	},
 	async delete(req, res) {
+		let results = await RecipeFile.find(req.body.id)
+		const files = results.rows
+
+		const recipeFilesPromises = files.map(row => RecipeFile.delete(row.id))
+		await Promise.all(recipeFilesPromises)
+
+		const filesPromises = files.map(row => File.delete(row.id))
+		await Promise.all(filesPromises)
+
 		await Recipe.delete(req.body.id)
 		return res.redirect("/admin/recipes")
 	}

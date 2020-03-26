@@ -1,5 +1,9 @@
 const express = require('express')
 const routes = express.Router()
+
+const multer = require('./app/middlewares/multer')
+const uploadLimit = 5
+
 const userRecipes = require('./app/controllers/user/recipes')
 const userChefs = require('./app/controllers/user/chefs')
 const adminRecipes = require('./app/controllers/admin/recipes')
@@ -19,11 +23,11 @@ routes.get('/chefs', userChefs.index)
 routes.get('/admin', adminRecipes.home)
 routes.get('/admin/recipes', adminRecipes.index)
 routes.get('/admin/recipes/create', adminRecipes.create)
-routes.post('/admin/recipes', adminRecipes.post)
+routes.post('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.post)
 routes.get('/admin/recipes/:id', adminRecipes.show)
 routes.get('/admin/recipes/:id/edit', adminRecipes.edit)
-routes.put('/admin/recipes', adminRecipes.put)
-routes.delete('/admin/recipes', adminRecipes.delete)
+routes.put('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.put)
+routes.delete('/admin/recipes', multer.array("photos", uploadLimit), adminRecipes.delete)
 /* chefs */
 routes.get('/admin/chefs', adminChefs.index)
 routes.get('/admin/chefs/create', adminChefs.create)
@@ -31,6 +35,6 @@ routes.post('/admin/chefs', adminChefs.post)
 routes.get('/admin/chefs/:id', adminChefs.show)
 routes.get('/admin/chefs/:id/edit', adminChefs.edit)
 routes.put('/admin/chefs', adminChefs.put)
-routes.delete('/admin/chefs', adminChefs.delete)
+routes.delete('/admin/chefs', multer.array("photos", uploadLimit), adminChefs.delete)
 
 module.exports = routes
