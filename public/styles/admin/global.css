@@ -8,6 +8,11 @@
 	box-sizing: border-box;
 }
 
+html,
+body {
+	min-height: 100vh;
+}
+
 body {
 	background: white;
 	font-family: "Roboto", sans-serif;

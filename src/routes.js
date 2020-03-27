@@ -17,6 +17,7 @@ routes.get('/recipes', userRecipes.index)
 routes.get('/recipes/:id', userRecipes.show)
 /* chefs */
 routes.get('/chefs', userChefs.index)
+routes.get('/chefs/:id', userChefs.show)
 
 /* ~~~~~~ ADMIN ~~~~~~ */
 /* recipes */

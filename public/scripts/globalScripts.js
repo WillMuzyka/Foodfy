@@ -99,12 +99,12 @@ const ImageUpload = {
 	removeImage(event) {
 		const photoDiv = event.target.parentNode
 		const photosArray = Array.from(ImageUpload.preview.children)
-		const index = photosArray.indexOf(photoDiv)
+		let index = photosArray.indexOf(photoDiv)
+		const numberFilesBefore = photosArray.length - ImageUpload.files.length
+		index -= numberFilesBefore
 
 		if (!ImageUpload.hasMinimum(event)) return
-		console.log(ImageUpload.files, index)
-		ImageUpload.files.splice(index - 1, 1)
-		console.log(ImageUpload.files)
+		ImageUpload.files.splice(index, 1)
 		ImageUpload.input.files = ImageUpload.getAllFiles()
 		photoDiv.remove()
 	},

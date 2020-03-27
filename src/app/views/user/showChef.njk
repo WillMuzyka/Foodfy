@@ -1,18 +1,13 @@
-{% extends "admin/layout.njk" %}
+{% extends "user/layout.njk" %}
 
 {% block styles %}
   <title>Admin - Foodfy</title>
   <link rel="stylesheet" href="/styles/chefs.css">
-  <link rel="stylesheet" href="/styles/admin/recipes.css">
+  <link rel="stylesheet" href="/styles/user/recipes.css">
 {% endblock %}
 
 {% block content %}
   <section class="complete">
-    <div class="chef-edit">
-      <h1>Chef: {{ chef.name }}</h1>
-      <a href="/admin/chefs/{{ chef.id }}/edit">Editar chef</a>
-    </div>
-
     <div class="chef-details">
       <img class="avatar" src="{{ chef.src }}" alt="chef img">
       <div class="top-info">
@@ -20,7 +15,7 @@
         <p>{{ chef.total_recipes }} receitas</p>
       </div>
 
-      <div class="topic one">
+      <div class="recipes-container">
         <h2>Receitas</h2>
         <div class="recipes index">
           {% for recipe in recipes %}
@@ -29,7 +24,7 @@
               <div class="recipe-details">
                 <p class="recipe-name">{{ recipe.title }}</p>
                 <p class="recipe-author">por {{ chef.name }}</p>
-                <a href="/admin/recipes/{{ recipe.id }}">Visualizar</a>
+                <a href="/recipes/{{ recipe.id }}">Visualizar</a>
               </div>
             </div>
           {% endfor %}

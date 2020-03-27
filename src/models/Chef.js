@@ -58,7 +58,7 @@ module.exports = {
 		const query = `SELECT *
 		FROM recipes
 		WHERE chef_id = $1
-		ORDER BY id`
+		ORDER BY recipes.created_at`
 
 		return db.query(query, [id])
 	},

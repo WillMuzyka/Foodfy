@@ -2,7 +2,7 @@
 
 {% block styles %}
   <title>Chefs - Foodfy</title>
-  <link rel="stylesheet" href="/styles/user/chefs.css">
+  <link rel="stylesheet" href="/styles/chefs.css">
 {% endblock %}
 
 {% block searchBlock %}
@@ -18,7 +18,7 @@
   {% endif %}
   <section class="chefs">
     {% for chef in chefs %}
-      <div class="chef">
+      <div class="chef card" id="{{ chef.id }}">
         <img src="{{ chef.src }}" alt="chef img">
         <div class="chef-info">
           <p class="chef-name">{{ chef.name }}</p>

@@ -39,7 +39,7 @@ body .text-most-accessed {
 	position: relative;
 }
 
-.complete .recipe img {
+.complete .recipe .main-image {
 	border-radius: 15px;
 	width: 100%;
 	max-height: 280px;
@@ -158,4 +158,17 @@ body .text-most-accessed {
 .recipe .gallery img:hover,
 .recipe .gallery img.active {
 	opacity: 1
+}
+
+/* CHEF RECIPES */
+.index.recipes {
+	grid-template-columns: 1fr 1fr;
+}
+
+.index.recipes img {
+	height: 70px;
+	width: 150px;
+	background-position: center;
+	object-fit: cover;
+	border-radius: 8px;
 }

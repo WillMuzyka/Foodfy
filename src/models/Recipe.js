@@ -6,7 +6,7 @@ module.exports = {
 			SELECT recipes.*, chefs.name author
 			FROM recipes
 			LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-			ORDER BY id`
+			ORDER BY recipes.created_at DESC`
 		return db.query(query)
 	},
 	create(values) {
@@ -62,8 +62,12 @@ module.exports = {
 	},
 	paginate(params) {
 		const { filter, limit, offset } = params
+		let order = "ORDER BY recipes.created_at DESC"
 		let filterQuery = ""
-		if (filter) filterQuery = `WHERE recipes.title ILIKE '%${filter}%'`
+		if (filter) {
+			filterQuery = `WHERE recipes.title ILIKE '%${filter}%'`
+			order = "ORDER BY recipes.updated_at DESC"
+		}
 
 		const totalQuery = `(
 			SELECT count(*)
@@ -75,7 +79,7 @@ module.exports = {
 		FROM recipes
 		LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
 		${filterQuery}
-		ORDER BY id LIMIT ${limit} OFFSET ${offset}`
+		${order} LIMIT ${limit} OFFSET ${offset}`
 
 		return db.query(query)
 	}
