@@ -1,52 +1,21 @@
-@import "https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap";
-@import "../color.css";
-
-* {
-	padding: 0;
-	border: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
-
-html,
-body {
-	min-height: 100vh;
-}
-
-body {
-	background: white;
-	font-family: "Roboto", sans-serif;
-	color: var(--color-letter);
-	display: grid;
-	grid-template: auto 1fr auto / 1fr;
-	min-height: 100vh;
-}
-
 /* HEADER */
 #admin header {
 	background-color: var(--color-letter);
 	margin: 0;
 	padding: 25px;
 	z-index: 10;
+	min-height: 88px;
+	display: flex;
 }
 
 #admin header>a {
 	margin-left: 175px;
 	margin-right: 35px;
-	cursor: pointer;
 }
 
 #admin header>a img {
 	margin: 0;
-}
-
-#admin .main {
-	margin: 0 200px;
-}
-
-/*HEADER*/
-#admin header {
-	display: flex;
+	object-fit: none;
 }
 
 #admin .links {
@@ -55,91 +24,19 @@ body {
 
 #admin .links a {
 	color: white;
-	size: 16px;
-	text-decoration: none;
-	margin: 0 15px;
-	position: relative;
-}
-
-#admin .links a:hover {
-	font-weight: bold;
-}
-
-#admin .links .active {
-	font-weight: bold;
 }
 
 .links a::after {
-	content: "";
-	width: 0;
-	height: 2px;
 	background-color: white;
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0);
-	bottom: -1px;
-	transition: width;
-}
-
-.links a:hover::after {
-	width: 100%;
-	transition: width 200ms cubic-bezier(1, 0.25, 0.60, 0.85);
-}
-
-/*FOOTER*/
-body footer {
-	background: var(--color-footer-bg);
-	margin-top: 30px;
-	padding: 23px;
-	text-align: center;
-}
-
-body footer p {
-	color: var(--color-letter-rights);
-	font-size: 14px;
-	line-height: 16px;
-}
-
-
-/*AJUST WINDOW SIZE*/
-@media (max-width: 1200px) {
-	.recipes {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-@media (max-width: 1000px) {
-	.recipes {
-		display: grid;
-		grid-template-columns: 1fr;
-	}
 }
 
 /* FILTER */
-header form {
-	display: grid;
-	grid-template-columns: 1fr 95px;
-	position: absolute;
-	right: 200px;
-	grid-gap: 8px;
-}
-
-header form input {
-	font-size: 14px;
-	color: var(--color-letter-rights);
-	border: 1px solid #DDD;
-	padding: 10px 15px;
-	border-radius: 4px;
-}
-
 button.filterButton {
-	border-radius: 4px;
 	background-color: var(--color-letter-subinfo);
-	color: white;
-	padding: 10px 20px;
-	font-size: 16px;
-	font-weight: bold;
+}
+
+button.filterButton:hover {
+	background-color: #666;
 }
 
 /* MANAGER */
@@ -166,33 +63,18 @@ button.filterButton {
 	border-radius: 4px;
 	margin-left: auto;
 	cursor: pointer;
+
+	transition: background-color 0.3s;
+}
+
+.manager a.newButton:hover,
+.chef .item label p:hover {
+	background-color: var(--color-button-hover);
 }
 
 /* PAGINATION */
 .pagination {
-	margin-top: 30px;
-	text-align: center;
-}
-
-.pagination a {
-	text-decoration: none;
-	color: var(--color-button);
-	padding: 0 4px;
-}
-
-.pagination a:not(:last-child) {
-	margin-right: 12px;
-}
-
-.pagination a:hover {
-	filter: brightness(0.4);
-	font-weight: bold;
-	border-bottom: 1px solid var(--color-button);
-}
-
-.pagination a.active {
-	filter: brightness(0.7);
-	font-weight: bold;
+	margin-top: 32px;
 }
 
 /* RECIPES FILE INPUT */

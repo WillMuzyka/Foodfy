@@ -1,5 +1,3 @@
-@import "../color.css";
-
 .chefs {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);

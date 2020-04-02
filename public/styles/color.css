@@ -6,4 +6,9 @@
 	--color-footer-bg: #EEEEEE;
 	--color-intro-bg: #FBDFDB;
 	--color-button: #6558C3;
+	--color-button-hover: #4e449c;
+}
+
+body {
+	background-color: white;
 }

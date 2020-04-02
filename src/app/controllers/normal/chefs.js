@@ -23,8 +23,7 @@ module.exports = {
 
 		let total = 1
 		if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-		return res.render('user/chefs', { chefs, filter, page, total })
-
+		return res.render('normal/chefs/index', { chefs, filter, page, total })
 	},
 	async show(req, res) {
 		try {
@@ -50,7 +49,7 @@ module.exports = {
 					src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
 				}))
 
-				return res.render('user/showChef', { chef, recipes })
+				return res.render('normal/chefs/show', { chef, recipes })
 			}
 		}
 		catch (err) {

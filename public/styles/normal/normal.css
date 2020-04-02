@@ -1,0 +1,74 @@
+/*HEADER*/
+body header {
+	display: flex;
+	margin: 38px 200px 30px;
+	align-items: center;
+}
+
+body header img {
+	margin-right: 105px;
+	size: 90.6px 26.9px;
+
+}
+
+.links {
+	display: inline-flex;
+}
+
+.links a {
+	color: var(--color-letter);
+}
+
+.links a::after {
+	background-color: var(--color-letter);
+}
+
+/*INTRO BLOCK*/
+body .intro-block {
+	background: var(--color-intro-bg);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	border-radius: 30px;
+	margin-bottom: 50px;
+}
+
+.intro-block .intro-text {
+	margin: 117px 60px;
+	margin-right: 0;
+	max-width: 320px;
+}
+
+.intro-block .intro-text h1 {
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 38px;
+}
+
+.intro-block .intro-text p {
+	color: black;
+	font-size: 18px;
+	line-height: 28px;
+}
+
+.intro-block img {
+	display: block;
+	margin: auto;
+	margin-bottom: 0;
+}
+
+h2.text-most-accessed {
+	margin-bottom: 40px;
+}
+
+/* FILTER */
+.main>h2 {
+	margin-bottom: 20px;
+}
+
+header form button {
+	background-color: var(--color-button);
+}
+
+header form button:hover {
+	background-color: var(--color-button-hover);
+}
