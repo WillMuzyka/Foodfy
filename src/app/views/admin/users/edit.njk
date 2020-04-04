@@ -1,0 +1,34 @@
+{% extends "admin/layout.njk" %}
+
+{% block styles %}
+  <title>Admin - Foodfy</title>
+  <link rel="stylesheet" href="/styles/admin/user.css">
+{% endblock %}
+
+{% block content %}
+  <section class="complete">
+    <div class="main-text">
+      <h1>Editar Usuário</h1>
+    </div>
+    <div class="fields user">
+      {% if session.admin and (user.id != session.userId) %}
+      <form id="delete-form" action="/users?_method=DELETE" method="POST">
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <button type="submit" class="delete user-edit-button">Deletar</button>
+      </form>
+      {% endif %}
+      <form action="/users?_method=PUT" method="POST">
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <button class="submit" type="submit" onClick="isChecked">Salvar</button>
+        {% include "admin/users/fields.njk" %}
+      </form>
+    </div>
+  </section>
+
+  <script>
+  function isChecked(){
+    const checkbox = document.querySelector("input[type='checkbox']")
+    checkbox.value = checkbox.checked
+  }
+  </script>
+{% endblock %}

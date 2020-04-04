@@ -7,17 +7,17 @@
 
 {% block content %}
   <section class="complete">
-    <div class="recipe-edit">
+    <div class="main-text">
       <h1>Editando: {{ chef.name }}</h1>
     </div>
 
     <form id="delete-form" action="/admin/chefs?_method=DELETE" method="POST">
       <input hidden type="text" name="id" value="{{ chef.id }}">
-      <button type="submit" class="delete">Deletar</button>
+      <button type="submit" class="delete chef-edit-button">Deletar</button>
     </form>
 
     <form action="/admin/chefs?_method=PUT" method="POST" enctype="multipart/form-data">
-      <button class="submit-form" type="submit">Salvar chef</button>
+      <button class="submit" type="submit">Salvar chef</button>
       {% include "admin/chefs/fields.njk" %}
       <input hidden type="text" name="id" value="{{ chef.id }}">
     </form>

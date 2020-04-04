@@ -2,7 +2,7 @@ const Recipe = require("../../../models/Recipe")
 const File = require("../../../models/File")
 const RecipeFile = require("../../../models/RecipeFile")
 
-const { showDate } = require("../../../lib/utils")
+const { showDate, showMessage } = require("../../../lib/utils")
 
 duplicateRecipe = (recipe) => {
 	const values = [
@@ -58,7 +58,14 @@ module.exports = {
 
 		let total = 1
 		if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
-		return res.render('admin/recipes/index', { recipes, filter, page, total })
+		return res.render('admin/recipes/index', {
+			recipes,
+			filter,
+			page,
+			total,
+			limit,
+			error: showMessage(req.query.mes)
+		})
 	},
 	async create(req, res) {
 		const results = await Recipe.chefOption()
@@ -73,7 +80,8 @@ module.exports = {
 			req.body.title,
 			req.body.ingredients.filter(ingredient => ingredient != ""),
 			req.body.preparation.filter(step => step != ""),
-			req.body.information.replace(/\r/g, "")
+			req.body.information.replace(/\r/g, ""),
+			user_id = req.session.userId
 		]
 
 		//create the files
@@ -117,7 +125,11 @@ module.exports = {
 
 		files = addSrcFromPath(files, req)
 
-		return res.render('admin/recipes/show', { recipe, files })
+		return res.render('admin/recipes/show', {
+			recipe,
+			files,
+			owner: req.owner
+		})
 	},
 	async edit(req, res) {
 		let results = await Recipe.find(req.params.id)
@@ -130,11 +142,16 @@ module.exports = {
 		results = await Recipe.chefOption()
 		const chefs = results.rows
 
-		return res.render("admin/recipes/edit", { recipe, images, chefs })
+		return res.render("admin/recipes/edit", {
+			recipe,
+			images,
+			chefs,
+			error: showMessage(req.query.mes)
+		})
 	},
 	async put(req, res) {
 		const { id: recipe_id, removed_ids } = req.body
-
+		console.log(recipe_id)
 		const values = [
 			req.body.chef_id,
 			req.body.title,

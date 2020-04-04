@@ -7,11 +7,11 @@
 
 {% block content %}
   <section class="complete">
-    <div class="recipe-edit">
+    <div class="main-text">
       <h1>Novo Chef</h1>
     </div>
     <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
-      <button class="submit-form" type="submit" onclick="AvatarUpload.hasMinimum(event)">Salvar chef</button>
+      <button class="submit" type="submit" onclick="AvatarUpload.hasMinimum(event)">Salvar chef</button>
       {% include "admin/chefs/fields.njk" %}
     </form>
   </section>

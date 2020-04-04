@@ -1,0 +1,29 @@
+{% extends "normal/layout.njk" %}
+
+{% block styles %}
+  <title>Login - Foodfy</title>
+  <link rel="stylesheet" href="/styles/normal/session.css">
+{% endblock %}
+
+{% block searchBlock %}
+{% endblock %}
+
+{% block content %}
+<section class="login container">
+  <form action="/session/login" method="POST">
+    <div class="header">
+      <h1>Iniciar Sessão</h1>
+    </div>
+    <div class="fields">
+      {% include "normal/session/fields.njk" %}
+    </div>
+    <div class="footer">
+      <a href="/session/forgot-password">
+        <i class="material-icons">help_outline</i>
+        <p>Perdeu a senha?</p>
+      </a>
+      <button type="submit" class="submit">Acessar</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

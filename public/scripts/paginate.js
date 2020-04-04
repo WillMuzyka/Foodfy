@@ -1,6 +1,7 @@
 const pagination = document.querySelector(".pagination")
 const total = +pagination.dataset.total
 const page = +pagination.dataset.page
+const limit = +pagination.dataset.limit
 const filter = pagination.dataset.filter
 
 paginate = (total, page) => {
@@ -27,10 +28,14 @@ for (index of paginate(total, page)) {
 	//if there's a filter
 	let filterURL = ""
 	if (filter) filterURL = `filter=${filter}&`
+	//if there's a limit
+	let limitURL = ""
+	if (limit) limitURL = `limit=${limit}&`
 	//create page index
+	const extraURL = limitURL + filterURL
 	if (String(index).includes("...")) elements += `<span>${index}</span>`
-	else if (index == page) elements += `<a class="active" href="?${filterURL}page=${index}">${index}</a>`
-	else elements += `<a href="?${filterURL}page=${index}">${index}</a>`
+	else if (index == page) elements += `<a class="active" href="?${extraURL}page=${index}">${index}</a>`
+	else elements += `<a href="?${extraURL}page=${index}">${index}</a>`
 }
 
 pagination.innerHTML = elements

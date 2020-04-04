@@ -1,0 +1,71 @@
+.complete .user.fields form {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 16px 48px;
+}
+
+.complete .user.fields .no-margin {
+	margin: 0
+}
+
+.complete .user.fields .password-title {
+	margin-top: 16px
+}
+
+.complete .user.fields form>div.adminCheck {
+	margin-top: 16px;
+	display: flex;
+}
+
+.complete .user.fields form>div.adminCheck div {
+	margin: 0;
+	margin-right: 8px;
+}
+
+/* USER INDEX */
+.users {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.users .user {
+	flex: 1 0 21%;
+}
+
+.users .user:not(:nth-child(3n)) {
+	margin-right: 150px;
+}
+
+.users .user:not(:nth-child(7)):not(:nth-child(8)):not(:nth-child(9)) {
+	margin-bottom: 40px;
+}
+
+.users .user .user-info .buttons {
+	display: grid;
+	grid-template-columns: 50px 50px;
+	margin-top: 20px;
+}
+
+.users .user .user-info p.user-name {
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.users .user .user-info p.user-email {
+	color: var(--color-letter-subinfo);
+	font-size: 13px;
+}
+
+.users .user .user-info .editUser {
+	color: var(--color-button);
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.users .user .user-info .delete-user {
+	background-color: white;
+	color: var(--color-button-delete);
+	font-size: 16px;
+	font-weight: bold;
+}

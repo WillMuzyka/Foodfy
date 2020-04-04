@@ -49,7 +49,7 @@ module.exports = {
 
 			let total = 1
 			if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-			return res.render('admin/chefs/index', { chefs, filter, page, total })
+			return res.render('admin/chefs/index', { chefs, filter, page, total, limit })
 		}
 		catch (err) {
 			console.log("Erro ao carregar chefs index")

@@ -1,0 +1,19 @@
+{% extends "normal/layout.njk" %}
+
+{% block searchBlock %}
+<form action="/recipes" method="GET">
+  <input type="text" name="filter" placeholder="Buscar uma receita">
+  <button class="filterButton" type="submit">Buscar</button>
+</form>
+{% endblock %}
+
+{% block content %}
+  <div class="err-container">
+    <div class="err-info">
+      <h1>A página solicitada não pode ser exibida!</h1>
+      <p>Por favor, verifique o URL ou tente novamente mais tarde.</p>
+      <img src="/assets/err.png" alt="">
+      <p class="err-type">Mensagem de erro: {{ errorText }}</p>
+    </div>
+  </div>
+{% endblock %}

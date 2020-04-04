@@ -1,0 +1,46 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 32px;
+}
+
+.container form {
+	padding: 32px;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	box-shadow: 4px 4px 6px -2px rgba(0, 0, 0, 0.3);
+	width: 500px;
+}
+
+.container h1 {
+	text-align: center;
+}
+
+.container .footer {
+	margin-top: 48px;
+	display: flex;
+	align-items: center;
+}
+
+.container .footer a {
+	display: flex;
+	align-items: center;
+	color: var(--color-letter-subinfo);
+}
+
+.container .footer a p {
+	margin-left: 8px;
+	font-weight: bold;
+	letter-spacing: 0.4px;
+	transition: color 0.3s;
+}
+
+.container .footer a:hover {
+	color: var(--color-button-hover);
+}
+
+.container .footer button {
+	text-align: center;
+	min-width: 150px;
+}

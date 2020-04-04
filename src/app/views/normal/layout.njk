@@ -2,8 +2,7 @@
 <html>
 
   <head>
-    <link rel="stylesheet" href="/styles/global.css">
-    <link rel="stylesheet" href="/styles/color.css">
+  {% include "parts/links.njk" %}
     <link rel="stylesheet" href="/styles/normal/normal.css">
     {% block styles %}
       <title>Foodfy</title>
@@ -11,16 +10,20 @@
   </head>
 
   <body>
+    {% include "parts/messages.njk" %}
     <header>
-      <a href="/"><img src="/assets/logo.png" alt="Foodfy"></a>
+      <div class="header-margin">
+        <a href="/"><img src="/assets/logo.png" alt="Foodfy"></a>
 
-      <div class="links">
-        <a href="/about">Sobre</a>
-        <a href="/recipes">Receitas</a>
-        <a href="/chefs">Chefs</a>
+        <div class="links">
+          <a href="/about">Sobre</a>
+          <a href="/recipes">Receitas</a>
+          <a href="/chefs">Chefs</a>
+          <a href="/login">Login</a>
+        </div>
+        {% block searchBlock %}
+        {% endblock %}
       </div>
-      {% block searchBlock %}
-      {% endblock %}
     </header>
 
     <div class="main">

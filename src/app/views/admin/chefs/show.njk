@@ -8,9 +8,11 @@
 
 {% block content %}
   <section class="complete">
-    <div class="chef-edit">
+    <div class="main-text">
       <h1>Chef: {{ chef.name }}</h1>
-      <a href="/admin/chefs/{{ chef.id }}/edit">Editar chef</a>
+      {% if session.admin %}
+      <a class="submit" href="/admin/chefs/{{ chef.id }}/edit">Editar chef</a>
+      {% endif %}
     </div>
 
     <div class="chef-details">

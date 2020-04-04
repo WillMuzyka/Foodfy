@@ -2,20 +2,9 @@
 #admin header {
 	background-color: var(--color-letter);
 	margin: 0;
-	padding: 25px;
 	z-index: 10;
-	min-height: 88px;
-	display: flex;
-}
 
-#admin header>a {
-	margin-left: 175px;
-	margin-right: 35px;
-}
-
-#admin header>a img {
-	margin: 0;
-	object-fit: none;
+	position: relative;
 }
 
 #admin .links {
@@ -81,7 +70,6 @@ button.filterButton:hover {
 #photos-container {
 	display: flex;
 }
-
 
 input[type='file'] {
 	display: none
@@ -177,4 +165,36 @@ input[type='file'] {
 .chef #avatar_src {
 	color: var(--color-letter-rights);
 	margin-bottom: 10px;
+}
+
+/* MAIN HEADER */
+.complete .main-text {
+	margin-top: 50px;
+	display: grid;
+	grid-template-columns: 1fr 250px;
+}
+
+/* EXIT BUTTON */
+.exit {
+	position: absolute;
+	right: 32px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.exit .user-exit {
+	color: white;
+	background-color: var(--color-letter);
+	right: 50px;
+	cursor: pointer;
+	padding: 8px 16px;
+
+	border-radius: 4px;
+	border: 1px solid var(--color-letter);
+	transition: all 0.3s;
+}
+
+.exit .user-exit:hover {
+	border: 1px solid white;
+	background-color: black;
 }

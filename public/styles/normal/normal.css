@@ -1,16 +1,4 @@
 /*HEADER*/
-body header {
-	display: flex;
-	margin: 38px 200px 30px;
-	align-items: center;
-}
-
-body header img {
-	margin-right: 105px;
-	size: 90.6px 26.9px;
-
-}
-
 .links {
 	display: inline-flex;
 }

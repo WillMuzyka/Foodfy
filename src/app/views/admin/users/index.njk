@@ -1,0 +1,50 @@
+{% extends "admin/layout.njk" %}
+
+{% block styles %}
+  <title>Admin - Foodfy</title> 
+  <link rel="stylesheet" href="/styles/admin/user.css">
+{% endblock %}
+
+{% block searchBlock %}
+<form action="/users/index" method="GET">
+  <input type="text" name="filter" placeholder="Buscar um usuário">
+  <button class="filterButton" type="submit">Buscar</button>
+</form>
+{% endblock %}
+
+{% block content %}
+  <div class="manager">
+    <h1>Gerenciar Usuários {% if filter %} - Buscando por "{{ filter }}"{% endif %}</h1>
+    {% if session.admin %}
+    <a class="newButton" href="/users/register">Novo usuário</a>
+    {% endif %}
+  </div>
+  <section class="users">
+    {% for user in users %}
+      <div class="user">
+      {% if not user.nullItem %}
+        <div class="user-info">
+          <p class="user-name">{{ user.name }}</p>
+          <p class="user-email">{{ user.email }}</p>
+          <div class="buttons">
+            <a class="editUser" href="/users/{{ user.id }}">Editar</a>
+            <form id="delete-form" action="/users?_method=DELETE" method="POST">
+              <input type="hidden" name="id" value="{{ user.id }}">
+              <button type="submit" class="delete-user">Remover</button>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="pagination"
+  data-page={{ page }}
+  data-limit={{ limit }}
+  data-total={{ total }}
+  data-filter={{ filter }}>
+  </div>
+
+  <script src="/scripts/paginate.js"></script>
+{% endblock %}

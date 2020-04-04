@@ -2,35 +2,40 @@
 <html>
 
   <head>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/global.css">
-    <link rel="stylesheet" href="/styles/color.css">
+    {% include "parts/links.njk" %}
     <link rel="stylesheet" href="/styles/admin/admin.css">
-    
     {% block styles %}
       <title>Admin - Foodfy</title>
     {% endblock %}
   </head>
 
   <body id="admin">
+    {% include "parts/messages.njk" %}
     <header>
-      <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
-      <div class="links">
-        <a href="/admin/recipes">Receitas</a>
-        <a href="/admin/chefs">Chefs</a>
+      <div class="header-margin">
+        <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
+        <div class="links">
+          <a href="/admin/recipes">Receitas</a>
+          <a href="/admin/chefs">Chefs</a>
+          {% if session.admin %}
+          <a href="/users/index">Usuários</a>
+          {% else %}
+          <a href="/users/{{ session.userId }}">Conta</a>
+          {% endif %}
+        </div>
+        {% block searchBlock %}
+        {% endblock %}
       </div>
-      {% block searchBlock %}
-      {% endblock %}
+      <div class="exit">
+        <form action="/session/logout" method="POST">
+          <button type="submit" class="user-exit">SAIR</button>
+        </form>
+      </div>
     </header>
 
     <div class="main">
     {% block content %}{% endblock %}
     </div>
-
-    <footer>
-      <p>Todos direitos reservados, receitas Foodfy.</p>
-    </footer>
   </body>
   {% block script %}{% endblock %}
   <script src="/scripts/currentPageHighlight.js"></script>

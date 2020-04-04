@@ -1,0 +1,54 @@
+<div class="item">
+  <div>Nome</div>
+  <div>
+    <input
+      required
+      type="text"
+      name="name"
+      placeholder="Digite o seu nome"
+      value="{{ user.name }}"
+    >
+  </div>
+</div>
+
+<div class="item">
+  <div>Email</div>
+  <div>
+    <input
+      required
+      type="email"
+      name="email"
+      placeholder="Digite o seu email"
+      value="{{ user.email }}"
+    >
+  </div>
+</div>
+
+{% if session.admin and (user.id != session.userId) %}
+<div class="item adminCheck">
+  <div class="no-margin">
+    <input
+      type="checkbox"
+      name="is_admin"
+      {% if user.is_admin %}
+      checked
+      {% endif %}
+      >
+  </div>
+  <div>Administrador</div>
+</div>
+{% endif %}
+
+{% if (user.id == session.userId) %}
+<div class="item">
+  <div class="password-title">Senha</div>
+  <div>
+    <input
+      required
+      type="password"
+      name="password"
+      placeholder="Digite a senha"
+      >
+  </div>
+</div>
+{% endif %}

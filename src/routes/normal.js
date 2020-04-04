@@ -1,17 +1,17 @@
 const express = require('express')
 const routes = express.Router()
 
-const normalRecipes = require('../app/controllers/normal/recipes')
-const normalChefs = require('../app/controllers/normal/chefs')
+const Recipes = require('../app/controllers/normal/RecipeController')
+const Chefs = require('../app/controllers/normal/ChefController')
 /* ~~~~~~ NORMAL ~~~~~~ */
 /* recipes */
-routes.get('/', normalRecipes.home)
-routes.get('/about', normalRecipes.about)
-routes.get('/recipes', normalRecipes.index)
-routes.get('/recipes/:id', normalRecipes.show)
+routes.get('/', Recipes.home)
+routes.get('/about', Recipes.about)
+routes.get('/recipes', Recipes.index)
+routes.get('/recipes/:id', Recipes.show)
 /* chefs */
-routes.get('/chefs', normalChefs.index)
-routes.get('/chefs/:id', normalChefs.show)
+routes.get('/chefs', Chefs.index)
+routes.get('/chefs/:id', Chefs.show)
 
 
 module.exports = routes

@@ -58,7 +58,7 @@ module.exports = {
 
 			let total = 1
 			if (recipes[0]) total = Math.ceil(recipes[0].total / limit)
-			return res.render('normal/recipes/index', { recipes, filter, page, total })
+			return res.render('normal/recipes/index', { recipes, filter, page, total, limit })
 		}
 		catch (err) {
 			console.error(err)

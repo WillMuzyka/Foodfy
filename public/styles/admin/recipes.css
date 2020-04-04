@@ -95,15 +95,7 @@
 	white-space: pre-line;
 }
 
-.complete .recipe-edit {
-	margin-top: 50px;
-	display: grid;
-	grid-template-columns: 1fr 250px;
-}
-
-.complete .recipe-edit a,
-button.delete,
-button.submit-form {
+.complete .recipe-edit a {
 	text-align: right;
 	text-decoration: none;
 	font-size: 16px;
@@ -112,63 +104,12 @@ button.submit-form {
 	color: white;
 	padding: 8px 16px;
 	border-radius: 4px;
+	letter-spacing: 0.4px;
 	margin-left: auto;
 	cursor: pointer;
 }
 
 /* FORM */
-input,
-textarea,
-select,
-#avatar_src {
-	width: 100%;
-	box-sizing: border-box;
-	outline: none;
-	resize: none;
-	border: 1px solid #DDD;
-	padding: 15px 20px;
-	font-size: 16px;
-	color: var(--color-letter);
-	border-radius: 4px;
-}
-
-textarea {
-	font-family: "Roboto", sans-serif;
-	color: var(--color-letter);
-}
-
-.complete .item>div:first-child {
-	margin-top: 30px;
-	font-weight: bold;
-}
-
-.complete .item>div:not(:last-child) {
-	margin-bottom: 10px;
-}
-
-.item button {
-	color: var(--color-button);
-	background: white;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.complete .submit-form {
-	position: absolute;
-	top: 50px;
-	right: 0;
-}
-
-.complete .delete {
-	margin-right: 5px;
-	background-color: #DC4747;
-	position: absolute;
-	right: 136px;
-	top: 50px;
-	cursor: pointer;
-}
-
 select {
 	cursor: pointer;
 }
@@ -179,6 +120,14 @@ select:required:invalid {
 
 select option {
 	color: var(--color-letter);
+}
+
+.item button {
+	color: var(--color-button);
+	background: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 /* IMAGE GALLERY */

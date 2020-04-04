@@ -7,17 +7,20 @@
 
 {% block content %}
   <section class="complete">
-    <div class="recipe-edit">
+    <div class="main-text">
       <h1>Editando: {{ recipe.title }}</h1>
     </div>
     <form id="delete-form" action="/admin/recipes?_method=DELETE" method="POST">
       <input hidden type="text" name="id" value="{{ recipe.id }}">
       <button type="submit" class="delete">Deletar</button>
     </form>
-    <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
-      {% include "admin/recipes/fields.njk" %}
-      <input hidden type="text" name="id" value="{{ recipe.id }}">
-    </form>
+    <div class="recipe">
+      <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
+        <button class="submit" type="submit">Salvar receita</button>
+        {% include "admin/recipes/fields.njk" %}
+        <input hidden type="text" name="id" value="{{ recipe.id }}">
+      </form>
+    </div>
   </section>
   <script src="/scripts/addNewNode.js"></script>
   <script src="/scripts/deleteConfirm.js"></script>

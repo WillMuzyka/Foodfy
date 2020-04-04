@@ -23,7 +23,7 @@ module.exports = {
 
 		let total = 1
 		if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-		return res.render('normal/chefs/index', { chefs, filter, page, total })
+		return res.render('normal/chefs/index', { chefs, filter, page, total, limit })
 	},
 	async show(req, res) {
 		try {

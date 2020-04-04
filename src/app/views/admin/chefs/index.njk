@@ -15,7 +15,9 @@
 {% block content %}
   <div class="manager">
     <h1>Gerenciar Chefs {% if filter %} - Buscando por "{{ filter }}"{% endif %}</h1>
+    {% if session.admin %}
     <a class="newButton" href="/admin/chefs/create">Novo chef</a>
+    {% endif %}
   </div>
   <section class="chefs">
     {% for chef in chefs %}
@@ -31,6 +33,7 @@
 
   <div class="pagination"
   data-page={{ page }}
+  data-limit={{ limit }}
   data-total={{ total }}
   data-filter={{ filter }}>
   </div>

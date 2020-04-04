@@ -7,12 +7,15 @@
 
 {% block content %}
   <section class="complete">
-    <div class="recipe-edit">
+    <div class="main-text">
       <h1>Nova Receita</h1>
     </div>
-    <form action="/admin/recipes" method="POST" enctype="multipart/form-data">
-      {% include "admin/recipes/fields.njk" %}
-    </form>
+    <div class="recipe">
+      <form action="/admin/recipes" method="POST" enctype="multipart/form-data">
+        <button class="submit" type="submit">Salvar receita</button>
+        {% include "admin/recipes/fields.njk" %}
+      </form>
+    </div>
   </section>
   <script src="/scripts/addNewNode.js"></script>
   <script src="/scripts/required.js"></script>

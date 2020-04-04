@@ -22,9 +22,30 @@ body {
 
 .main {
 	margin: 0 200px 15px;
+	position: relative;
 }
 
 /* HEADER */
+header .header-margin {
+	position: relative;
+	margin: 0 200px;
+	display: flex;
+	align-items: center;
+	padding: 25px 0;
+	min-height: 88px;
+}
+
+header .header-margin>a {
+	margin-right: 35px;
+	display: flex;
+	align-items: center;
+}
+
+header .header-margin>a img {
+	margin: 0;
+	object-fit: none;
+}
+
 .links a {
 	size: 16px;
 	line-height: 19px;
@@ -77,6 +98,27 @@ body footer p {
 	line-height: 16px;
 }
 
+/* ERROR PAGE */
+.err-container {
+	text-align: center;
+	margin-top: 16px;
+}
+
+.err-container h1 {
+	margin-bottom: 16px;
+}
+
+.err-container img+p {
+	margin-top: 8px 0;
+	color: var(--color-letter-rights);
+	font-size: 14px;
+}
+
+.err-container img {
+	width: 35%;
+	height: 35%;
+	object-fit: cover;
+}
 
 /*AJUST WINDOW SIZE*/
 @media (max-width: 1200px) {
@@ -94,15 +136,15 @@ body footer p {
 }
 
 /* FILTER */
-header form {
+header .header-margin form {
 	display: grid;
 	grid-template-columns: 1fr 95px;
 	position: absolute;
-	right: 200px;
+	right: 0;
 	grid-gap: 8px;
 }
 
-header form input {
+header form input[name="filter"] {
 	font-size: 14px;
 	color: var(--color-letter-rights);
 	border: 1px solid #DDD;
@@ -144,4 +186,93 @@ button.filterButton {
 .pagination a.active {
 	color: var(--color-button-hover);
 	font-weight: bold;
+}
+
+/* FORM */
+input:not([type="checkbox"]),
+textarea,
+select,
+#avatar_src {
+	width: 100%;
+	box-sizing: border-box;
+	outline: none;
+	resize: none;
+	border: 1px solid #DDD;
+	padding: 15px 20px;
+	font-size: 16px;
+	color: var(--color-letter);
+	border-radius: 4px;
+}
+
+textarea {
+	font-family: "Roboto", sans-serif;
+	color: var(--color-letter);
+}
+
+.item>div:first-child {
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+.item>div:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.submit {
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--color-button);
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	letter-spacing: 0.4px;
+	margin-left: auto;
+	cursor: pointer;
+	min-width: 100px;
+	transition: background-color 0.3s;
+}
+
+.submit:hover {
+	background-color: var(--color-button-hover);
+}
+
+button.delete {
+	text-align: right;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	letter-spacing: 0.4px;
+	margin-left: auto;
+	margin-right: 5px;
+	background-color: var(--color-button-delete);
+	position: absolute;
+	right: 142px;
+	top: 50px;
+	cursor: pointer;
+
+	transition: background-color 0.3s;
+}
+
+button.delete:hover {
+	background-color: var(--color-button-delete-hover);
+
+}
+
+button.delete.chef-edit-button {
+	right: 122px;
+}
+
+button.delete.user-edit-button {
+	right: 100px;
+}
+
+.complete button.submit {
+	position: absolute;
+	top: 50px;
+	right: 0;
 }

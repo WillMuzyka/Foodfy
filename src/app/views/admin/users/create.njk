@@ -1,0 +1,28 @@
+{% extends "admin/layout.njk" %}
+
+{% block styles %}
+  <title>Admin - Foodfy</title>
+  <link rel="stylesheet" href="/styles/admin/recipes.css">
+  <link rel="stylesheet" href="/styles/admin/user.css">
+{% endblock %}
+
+{% block content %}
+  <section class="complete">
+    <div class="main-text">
+      <h1>Novo Usuário</h1>
+    </div>
+    <div class="fields user">
+      <form action="/users/register" method="POST">
+        <button class="submit" type="submit" onClick="isChecked">Salvar usuário</button>
+        {% include "admin/users/fields.njk" %}
+      </form>
+    </div>
+  </section>
+
+  <script>
+  function isChecked(){
+    const checkbox = document.querySelector("input[type='checkbox']")
+    checkbox.value = checkbox.checked
+  }
+  </script>
+{% endblock %}
