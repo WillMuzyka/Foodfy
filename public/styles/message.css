@@ -1,7 +1,12 @@
 @keyframes hideMessage {
-	100% {
+	99% {
 		opacity: 0;
 		top: -30px;
+	}
+
+	100% {
+		opacity: 0;
+		top: -25vh;
 	}
 }
 
@@ -21,7 +26,7 @@
 
 	opacity: 1;
 	top: 0;
-	animation: hideMessage 1s 4s ease forwards;
+	animation: hideMessage 1s 4s ease-in forwards;
 }
 
 .message.error {
