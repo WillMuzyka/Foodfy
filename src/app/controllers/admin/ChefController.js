@@ -1,7 +1,7 @@
 const Chef = require("../../../models/Chef")
 const File = require("../../../models/File")
 const RecipeFile = require("../../../models/RecipeFile")
-const { showDate } = require("../../../lib/utils")
+const { showDate, showMessage } = require("../../../lib/utils")
 
 duplicateChef = (chef) => {
 	const values = [
@@ -49,10 +49,19 @@ module.exports = {
 
 			let total = 1
 			if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-			return res.render('admin/chefs/index', { chefs, filter, page, total, limit })
+			return res.render('admin/chefs/index', {
+				chefs,
+				filter,
+				page,
+				total,
+				limit,
+				error: showMessage(req.query.mes),
+				success: showMessage(req.query.suc),
+			})
 		}
 		catch (err) {
 			console.log("Erro ao carregar chefs index")
+			return res.redirect('/admin/recipes?mes=pg')
 		}
 	},
 	create(req, res) {
@@ -60,7 +69,7 @@ module.exports = {
 	},
 	async post(req, res) {
 		try {
-			if (req.files.length == 0) return res.send("Envie uma foto de avatar!")
+			if (req.file.length == 0) return res.send("Envie uma foto de avatar!")
 			const avatar = req.file
 
 			const fileValues = [
@@ -81,6 +90,9 @@ module.exports = {
 		}
 		catch (err) {
 			console.log("Erro ao postar chef")
+			return res.render("admin/chefs/create", {
+				error: "Erro ao criar chef. Por favor, tente novamente."
+			})
 		}
 	},
 	async show(req, res) {
@@ -107,11 +119,17 @@ module.exports = {
 					src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
 				}))
 
-				return res.render('admin/chefs/show', { chef, recipes })
+				return res.render('admin/chefs/show', {
+					chef,
+					recipes,
+					error: showMessage(req.query.mes),
+					success: showMessage(req.query.suc),
+				})
 			}
 		}
 		catch (err) {
 			console.log("Erro ao exibir chef", err)
+			return res.redirect("/admin/chefs?mes=pg")
 		}
 	},
 	async edit(req, res) {
@@ -122,13 +140,19 @@ module.exports = {
 				results = await File.find(chef.file_id)
 
 				const file = results.rows[0]
-				return res.render('admin/chefs/edit', { chef, file })
+				return res.render('admin/chefs/edit', {
+					chef,
+					file,
+					error: showMessage(req.query.mes),
+					success: showMessage(req.query.suc),
+				})
 
 			}
-			return res.redirect('/admin/chefs')
+			return res.redirect('/admin/chefs?mes=pg')
 		}
 		catch (err) {
 			console.log("Erro ao exibir chef para edição")
+			return res.redirect("/admin/chefs?mes=pg")
 		}
 	},
 	async put(req, res) {
@@ -158,19 +182,27 @@ module.exports = {
 
 			await Chef.update(values)
 			if (old_file) await File.delete(old_file)
-			return res.redirect(`/admin/chefs/${req.body.id}`)
+			return res.redirect(`/admin/chefs/${req.body.id}?suc=cu`)
 		}
 		catch (err) {
 			console.log("Erro ao atualizar chef")
+			return res.redirect("/admin/chefs?mes=ue")
 		}
 	},
 	async delete(req, res) {
 		try {
+			let results = await Chef.find(req.body.id)
+
 			await Chef.delete(req.body.id)
-			return res.redirect("/admin/chefs")
+
+			let file_id = results.rows[0].file_id
+			await File.delete(file_id)
+
+			return res.redirect("/admin/chefs?suc=cd")
 		}
 		catch (err) {
 			console.log("Erro ao deletar chef")
+			return res.redirect("/admin/chefs?mes=de")
 		}
 	}
 }

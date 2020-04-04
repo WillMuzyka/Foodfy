@@ -13,7 +13,7 @@ routes.post("/register", SessionValidator.onlyAdmin, UserValidator.post, UserCon
 
 //show
 routes.get("/:id", UserValidator.isOwnerOfAccount, UserController.edit)
-routes.put("/", UserValidator.isOwnerOfAccount, UserController.update)
+routes.put("/", UserValidator.isOwnerOfAccount, UserValidator.put, UserController.update)
 routes.delete("/", SessionValidator.onlyAdmin, UserValidator.isDeletingOwnAccount, UserController.delete)
 
 module.exports = routes

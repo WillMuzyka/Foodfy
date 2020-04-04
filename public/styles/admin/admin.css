@@ -170,9 +170,37 @@ input[type='file'] {
 /* MAIN HEADER */
 .complete .main-text {
 	margin-top: 50px;
+	min-height: 34px;
 	display: grid;
 	grid-template-columns: 1fr 250px;
 }
+
+.complete .main-text>a.cancel {
+	height: 34px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: var(--color-letter-rights);
+	color: white;
+	padding: 8px 16px;
+	border-radius: 4px;
+	margin-right: auto;
+	margin-top: 50px;
+
+	letter-spacing: 0.4px;
+	cursor: pointer;
+
+	position: absolute;
+	right: 0;
+
+	min-width: 100px;
+	transition: background-color 0.3s;
+}
+
+.complete .main-text>a.cancel:hover {
+	background-color: var(--color-button-delete);
+}
+
 
 /* EXIT BUTTON */
 .exit {

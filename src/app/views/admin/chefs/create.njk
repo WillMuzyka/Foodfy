@@ -9,9 +9,10 @@
   <section class="complete">
     <div class="main-text">
       <h1>Novo Chef</h1>
+      <a href="/admin/chefs" class="cancel">Cancelar</a>
     </div>
     <form action="/admin/chefs" method="POST" enctype="multipart/form-data">
-      <button class="submit" type="submit" onclick="AvatarUpload.hasMinimum(event)">Salvar chef</button>
+      <button class="submit save" type="submit" onclick="AvatarUpload.hasMinimum(event)">Salvar</button>
       {% include "admin/chefs/fields.njk" %}
     </form>
   </section>

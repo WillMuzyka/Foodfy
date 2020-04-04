@@ -89,6 +89,44 @@ module.exports = {
 
 		next()
 	},
+	async firstLogin(req, res, next) {
+		let { email, password, passwordRepeat, token } = req.body
+		//find user by email
+		let results = await User.find({
+			where: { email }
+		})
+		const user = results.rows[0]
+
+		//verificar token
+		if (user.reset_token != token) {
+			return res.render("normal/session/password-reset", {
+				user: req.body,
+				token,
+				error: "Token inválido."
+			})
+		}
+
+		let now = new Date()
+		if (user.reset_token_expires < now) {
+			return res.render("normal/session/password-reset", {
+				user: req.body,
+				token,
+				error: "Token expirado. Realize login novamente."
+			})
+		}
+
+		//verificar senha
+		if (password != passwordRepeat)
+			return res.render("normal/session/password-reset", {
+				user: req.body,
+				token,
+				error: "As senhas não batem"
+			})
+
+		req.user = user
+
+		next()
+	},
 	onlyUser(req, res, next) {
 		if (!req.session.userId)
 			return res.redirect("/session/login?mes=uo")

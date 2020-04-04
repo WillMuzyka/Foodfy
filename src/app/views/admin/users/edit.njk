@@ -8,7 +8,6 @@
 {% block content %}
   <section class="complete">
     <div class="main-text">
-      <h1>Editar Usuário</h1>
     </div>
     <div class="fields user">
       {% if session.admin and (user.id != session.userId) %}
@@ -19,7 +18,7 @@
       {% endif %}
       <form action="/users?_method=PUT" method="POST">
         <input type="hidden" name="id" value="{{ user.id }}">
-        <button class="submit" type="submit" onClick="isChecked">Salvar</button>
+        <button class="submit {{'own' if (user.id == session.userId)}}" type="submit" onClick="isChecked">Salvar</button>
         {% include "admin/users/fields.njk" %}
       </form>
     </div>

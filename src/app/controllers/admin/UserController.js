@@ -37,7 +37,8 @@ module.exports = {
 				total,
 				filter,
 				limit,
-				error: showMessage(req.query.mes)
+				error: showMessage(req.query.mes),
+				success: showMessage(req.query.suc),
 			})
 		}
 		catch (err) {
@@ -57,9 +58,9 @@ module.exports = {
 				to: email,
 				from: "no-reply@foodfy.com.br",
 				subject: "Token de acesso Foodfy",
-				html: `<h2>Seu token de acesso a Foodfy é:</h2>
-			<p>${token}</p>
-			<p>Utilize este token para acessar sua conta e definir uma nova senha.</p>`
+				html: `<h2>Utilize o link abaixo para acessar sua conta do Foodfy:</h2>
+			<a href="localhost:3000/session/first-login?token=${token}&email=${email}">Primeiro acesso</a>
+			<p>Utilize este link para acessar sua conta e definir uma nova senha.</p>`
 			})
 			//cria usuário
 			const password = await hash(token, 8)
@@ -73,11 +74,17 @@ module.exports = {
 
 			results = await User.create(values)
 			const userId = results.rows[0].id
-			//criar sessão
 
-			req.session.userId = userId
+			//envia token db
+			let now = new Date()
+			now = now.setHours(now.getHours() + 1)
 
-			return res.render("admin/users/index")
+			await User.update(userId, {
+				reset_token: token,
+				reset_token_expires: now
+			})
+
+			return res.redirect("/users/index?suc=uc")
 		}
 		catch{
 			console.error(err)

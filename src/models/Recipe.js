@@ -62,12 +62,19 @@ module.exports = {
 		return db.query(query)
 	},
 	paginate(params) {
-		const { filter, limit, offset } = params
+		const { filter, limit, offset, admin, userId } = params
 		let order = "ORDER BY recipes.created_at DESC"
 		let filterQuery = ""
 		if (filter) {
 			filterQuery = `WHERE recipes.title ILIKE '%${filter}%'`
 			order = "ORDER BY recipes.updated_at DESC"
+		}
+
+		if (!admin) {
+			if (filter)
+				filterQuery = `${filterQuery} AND recipes.user_id = ${userId}`
+			else
+				filterQuery = `WHERE recipes.user_id = ${userId}`
 		}
 
 		const totalQuery = `(

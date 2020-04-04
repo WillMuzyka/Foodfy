@@ -24,20 +24,6 @@
   </div>
 </div>
 
-{% if session.admin and (user.id != session.userId) %}
-<div class="item adminCheck">
-  <div class="no-margin">
-    <input
-      type="checkbox"
-      name="is_admin"
-      {% if user.is_admin %}
-      checked
-      {% endif %}
-      >
-  </div>
-  <div>Administrador</div>
-</div>
-{% endif %}
 
 {% if (user.id == session.userId) %}
 <div class="item">
@@ -50,5 +36,26 @@
       placeholder="Digite a senha"
       >
   </div>
+</div>
+{% endif %}
+
+{% if session.admin %}
+<div class="item adminCheck">
+  <div class="no-margin">
+    <input
+      type="checkbox"
+      name="is_admin"
+      {% if user.is_admin %}
+      checked
+      {% endif %}
+
+      {% if (user.id == session.userId) %}
+      hidden
+      {% endif %}
+      >
+  </div>
+  {% if (user.id != session.userId) %}
+  <div>Administrador</div>
+  {% endif %}
 </div>
 {% endif %}

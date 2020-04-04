@@ -1,10 +1,10 @@
 const User = require('../../models/User')
+const { compare } = require('bcryptjs')
 
 module.exports = {
 	async post(req, res, next) {
 		let { email } = req.body
-		//verificar se é admin -> não implementado no momento
-		//verificar se já existe usuário com mesmo email
+		//verify if there's another user with the same email
 		let results = await User.find({
 			where: { email }
 		})
@@ -14,7 +14,34 @@ module.exports = {
 				error: "Este email já está sendo utilizado!"
 			})
 		}
-
+		next()
+	},
+	async put(req, res, next) {
+		let { email, password, id } = req.body
+		//get the user that's being edit
+		let results = await User.find({
+			where: { id }
+		})
+		const userBeingEdit = results.rows[0]
+		//verify if there's another user with the same email
+		results = await User.find({
+			where: { email }
+		})
+		if (results.rows[0] && email != userBeingEdit.email) {
+			return res.render("admin/users/create", {
+				user: req.body,
+				error: "Este email já está sendo utilizado!"
+			})
+		}
+		//verify the password, if you're changing own account
+		if (id == req.session.userId) {
+			const passed = await compare(password, userBeingEdit.password)
+			if (!passed)
+				return res.render("normal/session/login", {
+					user: req.body,
+					error: "Senha incorreta"
+				})
+		}
 		next()
 	},
 	isOwnerOfAccount(req, res, next) {

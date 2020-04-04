@@ -20,12 +20,12 @@ routes.get('/recipes/:id/edit', UserValidator.isOwnerOfRecipe, Recipes.edit)
 routes.put('/recipes', multer.array("photos", uploadLimit), UserValidator.isOwnerOfRecipe, Recipes.put)
 routes.delete('/recipes', UserValidator.isOwnerOfRecipe, Recipes.delete)
 /* chefs */
-routes.get('/chefs', Chefs.index)
+routes.get('/chefs', SessionValidator.onlyAdmin, Chefs.index)
 routes.get('/chefs/create', SessionValidator.onlyAdmin, Chefs.create)
-routes.post('/chefs', SessionValidator.onlyAdmin, multer.single("avatar"), Chefs.post)
-routes.get('/chefs/:id', Chefs.show)
+routes.post('/chefs', multer.single("avatar"), SessionValidator.onlyAdmin, Chefs.post)
+routes.get('/chefs/:id', SessionValidator.onlyAdmin, Chefs.show)
 routes.get('/chefs/:id/edit', SessionValidator.onlyAdmin, Chefs.edit)
-routes.put('/chefs', SessionValidator.onlyAdmin, multer.single("avatar"), Chefs.put)
+routes.put('/chefs', multer.single("avatar"), SessionValidator.onlyAdmin, Chefs.put)
 routes.delete('/chefs', SessionValidator.onlyAdmin, Chefs.delete)
 
 

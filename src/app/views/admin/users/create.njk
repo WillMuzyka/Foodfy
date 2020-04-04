@@ -10,10 +10,11 @@
   <section class="complete">
     <div class="main-text">
       <h1>Novo Usuário</h1>
+      <a href="/users/index" class="cancel">Cancelar</a>
     </div>
     <div class="fields user">
       <form action="/users/register" method="POST">
-        <button class="submit" type="submit" onClick="isChecked">Salvar usuário</button>
+        <button class="submit save" type="submit" onClick="isChecked">Salvar</button>
         {% include "admin/users/fields.njk" %}
       </form>
     </div>

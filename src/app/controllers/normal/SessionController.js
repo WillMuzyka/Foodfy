@@ -86,4 +86,30 @@ module.exports = {
 			})
 		}
 	},
+	firstLoginForm(req, res) {
+		return res.render("normal/session/first-login", {
+			token: req.query.token,
+			email: req.query.email
+		})
+	},
+	async firstLogin(req, res) {
+		try {
+			const { user } = req
+			const newPassword = await hash(req.body.password, 8)
+
+			await User.update(user.id, {
+				password: newPassword,
+				reset_token: null,
+				reset_token_expires: null,
+			})
+
+			return res.redirect("/session/login?suc=pu")
+		}
+		catch (err) {
+			return res.render("normal/session/first-login", {
+				user: req.body,
+				error: "Erro ao realizar solicitação."
+			})
+		}
+	},
 }

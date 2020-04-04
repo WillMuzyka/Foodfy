@@ -239,7 +239,7 @@ textarea {
 }
 
 button.delete {
-	text-align: right;
+	text-align: center;
 	text-decoration: none;
 	font-size: 16px;
 	font-weight: bold;
@@ -247,11 +247,10 @@ button.delete {
 	padding: 8px 16px;
 	border-radius: 4px;
 	letter-spacing: 0.4px;
-	margin-left: auto;
-	margin-right: 5px;
+	min-width: 100px;
 	background-color: var(--color-button-delete);
 	position: absolute;
-	right: 142px;
+	right: 0;
 	top: 50px;
 	cursor: pointer;
 
@@ -264,15 +263,19 @@ button.delete:hover {
 }
 
 button.delete.chef-edit-button {
-	right: 122px;
+	/*right: 122px;*/
 }
 
 button.delete.user-edit-button {
-	right: 100px;
+	/*right: 100px;*/
 }
 
 .complete button.submit {
 	position: absolute;
 	top: 50px;
+	right: 105px;
+}
+
+.complete button.submit.own {
 	right: 0;
 }

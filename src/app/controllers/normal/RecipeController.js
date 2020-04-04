@@ -1,6 +1,7 @@
 const Recipe = require("../../../models/Recipe")
 const RecipeFile = require("../../../models/RecipeFile")
 
+const { showMessage } = require("../../../lib/utils")
 const aboutText = require("../../about")
 
 module.exports = {
@@ -20,7 +21,11 @@ module.exports = {
 				src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
 			}))
 
-			return res.render('normal/home', { recipes })
+			return res.render('normal/home', {
+				recipes,
+				error: showMessage(req.query.mes),
+				success: showMessage(req.query.suc),
+			})
 		}
 		catch (err) {
 			console.error(err)
