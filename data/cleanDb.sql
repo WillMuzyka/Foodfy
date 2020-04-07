@@ -1,8 +1,6 @@
 -- run these codes if you want to restart the database
 -- drop the databse
 DROP DATABASE IF EXISTS foodfy;
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
 
 -- delete all tables contents
 DELETE FROM chefs;

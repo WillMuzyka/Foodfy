@@ -1,11 +1,11 @@
 const faker = require('faker')
 const { hash } = require('bcryptjs')
 
-const User = require('../../models/User')
-const Chef = require('../../models/Chef')
-const File = require('../../models/File')
-const Recipe = require('../../models/Recipe')
-const RecipeFile = require('../../models/RecipeFile')
+const User = require('../src/models/User')
+const Chef = require('../src/models/Chef')
+const File = require('../src/models/File')
+const Recipe = require('../src/models/Recipe')
+const RecipeFile = require('../src/models/RecipeFile')
 
 const totalUsers = 10
 let totalAvatar

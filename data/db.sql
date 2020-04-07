@@ -1,6 +1,8 @@
 -- run these codes if you want to start the database
 -- create database
 CREATE DATABASE foodfy;
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
 
 -- create the tables
 CREATE TABLE "chefs"(
