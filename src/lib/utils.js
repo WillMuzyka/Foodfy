@@ -22,6 +22,9 @@ module.exports = {
 			case "de": return "Erro ao deletar. Por favor, tente novamente."
 			case "ue": return "Erro ao atualizar. Por favor, tente novamente."
 			case "pg": return "Erro ao acessar página. Por favor, tente novamente."
+			//update
+			case "ei": return "Este email já está sendo utilizado."
+			case "pi": return "Senha incorreta."
 
 			//SUCCESS
 			//create

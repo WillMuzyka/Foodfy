@@ -1,0 +1,8 @@
+{% macro searchBox(subject, translation) %}
+<div class="searchBox">
+  <form action="/{{ subject }}" method="GET">
+    <input type="text" name="filter" placeholder="Buscar {{translation}}" value="{{ filter }}">
+    <button class="filterButton" type="submit">Buscar</button>
+  </form>
+</div>
+{% endmacro %}

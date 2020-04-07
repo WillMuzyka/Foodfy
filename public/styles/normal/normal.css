@@ -53,10 +53,15 @@ h2.text-most-accessed {
 	margin-bottom: 20px;
 }
 
-header form button {
+.searchBox button {
 	background-color: var(--color-button);
 }
 
-header form button:hover {
+.searchBox button:hover {
 	background-color: var(--color-button-hover);
+}
+
+/* CHEFS CARD */
+body:not(#admin) .main section.chefs {
+	margin-top: 48px;
 }

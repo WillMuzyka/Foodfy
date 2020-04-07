@@ -5,10 +5,10 @@ module.exports = {
 	async login(req, res, next) {
 		//verificar email
 		const { email, password } = req.body
-		let results = await User.find({
+		const user = await User.findOne({
 			where: { email }
 		})
-		const user = results.rows[0]
+
 		if (!user)
 			return res.render("normal/session/login", {
 				user: req.body,
@@ -29,10 +29,10 @@ module.exports = {
 	async forgot(req, res, next) {
 		//verificar email
 		const { email } = req.body
-		let results = await User.find({
+		const user = await User.findOne({
 			where: { email }
 		})
-		const user = results.rows[0]
+
 		if (!user)
 			return res.render("normal/session/forgot-password", {
 				user: req.body,
@@ -46,10 +46,9 @@ module.exports = {
 	async reset(req, res, next) {
 		let { email, password, passwordRepeat, token } = req.body
 		//verificar email
-		let results = await User.find({
+		const user = await User.findOne({
 			where: { email }
 		})
-		const user = results.rows[0]
 
 		if (!user) {
 			return res.render("normal/session/password-reset", {
@@ -92,10 +91,9 @@ module.exports = {
 	async firstLogin(req, res, next) {
 		let { email, password, passwordRepeat, token } = req.body
 		//find user by email
-		let results = await User.find({
+		const user = await User.findOne({
 			where: { email }
 		})
-		const user = results.rows[0]
 
 		//verificar token
 		if (user.reset_token != token) {
@@ -138,8 +136,15 @@ module.exports = {
 		next()
 	},
 	isLogged(req, res, next) {
-		if (req.session.userId)
-			return res.redirect("/admin")
+		if (req.session.userId) {
+			let route = "/admin"
+			const { mes, suc } = req.query
+			if (mes)
+				route += `?mes=${mes}`
+			else if (suc)
+				route += `?suc=${suc}`
+			return res.redirect(route)
+		}
 
 		next()
 	}

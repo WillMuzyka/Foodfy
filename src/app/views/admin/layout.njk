@@ -4,39 +4,22 @@
   <head>
     {% include "parts/links.njk" %}
     <link rel="stylesheet" href="/styles/admin/admin.css">
-    {% block styles %}
-      <title>Admin - Foodfy</title>
-    {% endblock %}
+    <title>Admin - Foodfy</title>
+    {% block styles %}{% endblock %}
   </head>
 
   <body id="admin">
     {% include "parts/messages.njk" %}
-    <header>
-      <div class="header-margin">
-        <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
-        <div class="links">
-          <a href="/admin/recipes">Receitas</a>
-          {% if session.admin %}
-          <a href="/admin/chefs">Chefs</a>
-          <a href="/users/index">Usuários</a>
-          {% else %}
-          <a href="/users/{{ session.userId }}">Conta</a>
-          {% endif %}
-        </div>
-        {% block searchBlock %}
-        {% endblock %}
-      </div>
-      <div class="exit">
-        <form action="/session/logout" method="POST">
-          <button type="submit" class="user-exit">SAIR</button>
-        </form>
-      </div>
-    </header>
+    {% include "parts/headerAdmin.njk" %}
+    {% block searchBlock %}{% endblock %}
 
     <div class="main">
     {% block content %}{% endblock %}
     </div>
+
+    {% include "parts/footer.njk" %}
   </body>
+  
   {% block script %}{% endblock %}
   <script src="/scripts/currentPageHighlight.js"></script>
   <script src="/scripts/globalScripts.js"></script>

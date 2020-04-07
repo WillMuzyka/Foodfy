@@ -2,7 +2,6 @@
 #admin header {
 	background-color: var(--color-letter);
 	margin: 0;
-	z-index: 10;
 
 	position: relative;
 }
@@ -225,4 +224,35 @@ input[type='file'] {
 .exit .user-exit:hover {
 	border: 1px solid white;
 	background-color: black;
+}
+
+/* SUCCESS AND FAIL PAGES */
+.message-lottie {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 48px;
+}
+
+.message-lottie .success-lottie {
+	height: 150px;
+}
+
+.message-lottie .fail-lottie {
+	height: 110px;
+	margin: 20px 0;
+}
+
+.message-lottie h2 {
+	size: 18px;
+	margin-bottom: 16px;
+}
+
+.message-lottie p {
+	size: 16px;
+	margin-bottom: 8px;
+}
+
+.message-lottie a {
+	size: 14px;
 }

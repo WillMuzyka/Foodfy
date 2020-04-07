@@ -19,8 +19,7 @@ module.exports = {
 				offset
 			}
 
-			let results = await User.paginate(params)
-			let users = results.rows
+			let users = await User.paginate(params)
 			//ajust the number of users to a multiple of 3 (just for making the visual)
 			const modThree = users.length % 3
 			if (modThree != 0) {
@@ -65,15 +64,13 @@ module.exports = {
 			//cria usuário
 			const password = await hash(token, 8)
 			is_admin = is_admin ? true : false
-			values = [
+
+			const userId = await User.create({
 				name,
 				email,
 				password,
 				is_admin
-			]
-
-			results = await User.create(values)
-			const userId = results.rows[0].id
+			})
 
 			//envia token db
 			let now = new Date()
@@ -84,27 +81,24 @@ module.exports = {
 				reset_token_expires: now
 			})
 
-			return res.redirect("/users/index?suc=uc")
+			return res.redirect("/users/success")
 		}
-		catch{
-			console.error(err)
-			return res.render("admin/users/edit", {
-				error: "Erro ao criar usuário. Por favor tente novamente."
-			})
+		catch (error) {
+			console.error(error)
+			return res.redirect("/users/fail")
 		}
 	},
 	async edit(req, res) {
 		try {
-			let results = await User.find({ where: { id: req.params.id } })
-			const user = results.rows[0]
+			const user = await User.findOne({ where: { id: req.params.id } })
 
 			return res.render("admin/users/edit", {
 				user,
 				error: req.query.mes
 			})
 		}
-		catch{
-			console.error(err)
+		catch (error) {
+			console.error(error)
 			return res.render("admin/users/edit", {
 				error: "Erro ao carregar usuário. Por favor tente novamente."
 			})
@@ -140,9 +134,7 @@ module.exports = {
 	async delete(req, res) {
 		try {
 			await User.delete(req.body.id)
-			return res.render("admin/users/create", {
-				success: "Conta deletada com sucesso!"
-			})
+			return res.redirect("/users/index?suc=ud")
 		}
 		catch (err) {
 			console.error(err)
@@ -152,5 +144,10 @@ module.exports = {
 			})
 		}
 	},
-
+	success(req, res) {
+		return res.render("admin/userMessages/success")
+	},
+	fail(req, res) {
+		return res.render("admin/userMessages/fail")
+	}
 }

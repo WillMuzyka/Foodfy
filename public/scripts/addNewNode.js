@@ -26,6 +26,7 @@ addStep = () => {
 	}
 
 	newStep.children[0].value = ""
+	newStep.children[0].required = false
 	preparation.insertBefore(newStep, preparation.children[allSteps.length + 1])
 }
 

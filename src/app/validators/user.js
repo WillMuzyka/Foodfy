@@ -5,10 +5,10 @@ module.exports = {
 	async post(req, res, next) {
 		let { email } = req.body
 		//verify if there's another user with the same email
-		let results = await User.find({
+		let user = await User.findOne({
 			where: { email }
 		})
-		if (results.rows[0]) {
+		if (user) {
 			return res.render("admin/users/create", {
 				user: req.body,
 				error: "Este email já está sendo utilizado!"
@@ -19,28 +19,21 @@ module.exports = {
 	async put(req, res, next) {
 		let { email, password, id } = req.body
 		//get the user that's being edit
-		let results = await User.find({
+		const userBeingEdit = await User.findOne({
 			where: { id }
 		})
-		const userBeingEdit = results.rows[0]
 		//verify if there's another user with the same email
-		results = await User.find({
+		results = await User.findOne({
 			where: { email }
 		})
-		if (results.rows[0] && email != userBeingEdit.email) {
-			return res.render("admin/users/create", {
-				user: req.body,
-				error: "Este email já está sendo utilizado!"
-			})
+		if (results && email != userBeingEdit.email) {
+			return res.redirect("/session/login?mes=ei")
 		}
 		//verify the password, if you're changing own account
 		if (id == req.session.userId) {
 			const passed = await compare(password, userBeingEdit.password)
 			if (!passed)
-				return res.render("normal/session/login", {
-					user: req.body,
-					error: "Senha incorreta"
-				})
+				return res.redirect("/session/login?mes=pi")
 		}
 		next()
 	},
@@ -68,8 +61,7 @@ module.exports = {
 			return
 		}
 
-		const results = await User.getRecipes(req.session.userId)
-		const recipes = results.rows
+		const recipes = await User.getRecipes(req.session.userId)
 		const isOwner = recipes.find(elem => elem.id == req.body.id || elem.id == req.params.id)
 
 		if (!isOwner)
@@ -83,8 +75,7 @@ module.exports = {
 			return
 		}
 
-		const results = await User.getRecipes(req.session.userId)
-		const recipes = results.rows
+		const recipes = await User.getRecipes(req.session.userId)
 		const isOwner = recipes.find(elem => elem.id == req.params.id)
 
 		isOwner ? req.owner = true : req.owner = false

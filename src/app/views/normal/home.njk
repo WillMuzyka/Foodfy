@@ -1,4 +1,5 @@
 {% extends "normal/layout.njk" %}
+{% import "parts/search.njk" as search %}
 
 {% block styles %}
   <title>Receitas - Foodfy</title>
@@ -6,10 +7,7 @@
 {% endblock %}
 
 {% block searchBlock %}
-<form action="/recipes" method="GET">
-  <input type="text" name="filter" placeholder="Buscar uma receita">
-  <button class="filterButton" type="submit">Buscar</button>
-</form>
+  {{ search.searchBox("recipes", "receitas") }} 
 {% endblock %}
 
 {% block content %}
@@ -26,12 +24,14 @@
 
   <section class="recipes">
     {% for i in range(0, 6) %}
-      <div class="recipe" id="{{ recipes[i].id }}">
-        <img src="{{ recipes[i].src }}" alt="ilustrative img">
-        <p class="recipe-name">{{ recipes[i].title }}</p>
-        <p class="recipe-author">por
-          {{ recipes[i].author }}</p>
-      </div>
+      {% if recipes[i] %}
+        <div class="recipe" id="{{ recipes[i].id }}">
+          <img src="{{ recipes[i].src }}" alt="ilustrative img">
+          <p class="recipe-name">{{ recipes[i].title }}</p>
+          <p class="recipe-author">por
+            {{ recipes[i].author }}</p>
+        </div>
+      {% endif %}
     {% endfor %}
   </section>
 {% endblock %}

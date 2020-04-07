@@ -1,0 +1,22 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+  <div class="success message-lottie">
+    <div class="success-lottie"></div>
+    <h2>Conta Criada com Sucesso</h2>
+    <p>O usuário receberá em instantes um email com instruções para acessar a conta.</p>
+    <a href="/users/index">Voltar para Usuários</a>
+  </div>
+
+  <script src="/lottie.min.js" type="text/javascript"></script>
+  <script>
+    const element = document.querySelector('.success-lottie')
+    lottie.loadAnimation({
+      container: element, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/success.json' // the path to the animation json
+    });
+  </script>
+{% endblock %}

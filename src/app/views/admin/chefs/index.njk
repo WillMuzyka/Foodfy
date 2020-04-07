@@ -1,15 +1,12 @@
 {% extends "admin/layout.njk" %}
+{% import "parts/search.njk" as search %}
 
 {% block styles %}
-  <title>Admin - Foodfy</title> 
   <link rel="stylesheet" href="/styles/chefs.css">
 {% endblock %}
 
 {% block searchBlock %}
-<form action="/admin/chefs" method="GET">
-  <input type="text" name="filter" placeholder="Buscar um chef">
-  <button class="filterButton" type="submit">Buscar</button>
-</form>
+  {{ search.searchBox("admin/chefs", "chefs") }} 
 {% endblock %}
 
 {% block content %}
@@ -31,12 +28,5 @@
     {% endfor %}
   </section>
 
-  <div class="pagination"
-  data-page={{ page }}
-  data-limit={{ limit }}
-  data-total={{ total }}
-  data-filter={{ filter }}>
-  </div>
-
-  <script src="/scripts/paginate.js"></script>
+  {% include "parts/pagination.njk" %}
 {% endblock %}

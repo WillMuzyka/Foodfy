@@ -1,24 +1,23 @@
 const Chef = require("../../../models/Chef")
+const Recipe = require("../../../models/Recipe")
 const RecipeFile = require("../../../models/RecipeFile")
 
 module.exports = {
 	async index(req, res) {
 		let { filter, page, limit } = req.query
 		page = page || 1
-		limit = limit || 16
+		limit = limit || 12
 		const offset = limit * (page - 1)
 
-		const params = {
+		let chefs = await Chef.paginate({
 			filter,
 			limit,
 			offset
-		}
-		let results = await Chef.paginate(params)
-		let chefs = results.rows
+		})
 
 		chefs = chefs.map(chef => ({
 			...chef,
-			src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+			src: `${chef.path.replace("public", "")}`
 		}))
 
 		let total = 1
@@ -27,33 +26,32 @@ module.exports = {
 	},
 	async show(req, res) {
 		try {
-			let results = await Chef.find(req.params.id)
-			if (results.rows[0]) {
-				let chef = results.rows[0]
+			let chef = await Chef.find(req.params.id)
+			if (chef) {
 				chef = {
 					...chef,
-					src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+					src: `${chef.path.replace("public", "")}`
 				}
 
-				results = await Chef.recipesPublished(chef.id)
-				let recipes = results.rows
+				let recipes = await Recipe.findAll({
+					where: { chef_id: chef.id }
+				})
 
 				const recipesFilePromises = recipes.map(recipe => {
-					return RecipeFile.find(recipe.id)
+					return RecipeFile.findAll(recipe.id)
 				})
-				results = await Promise.all(recipesFilePromises)
-				const files = results
+				const files = await Promise.all(recipesFilePromises)
 
 				recipes = recipes.map((recipe, index) => ({
 					...recipe,
-					src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+					src: `${files[index][0].path.replace("public", "")}`
 				}))
 
 				return res.render('normal/chefs/show', { chef, recipes })
 			}
 		}
 		catch (err) {
-			console.log("Erro ao exibir chef", err)
+			console.error("Erro ao exibir chef", err)
 		}
 	}
 }

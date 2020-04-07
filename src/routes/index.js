@@ -14,7 +14,7 @@ routes.use('/users', SessionValidator.onlyUser, user)
 routes.use('/admin', SessionValidator.onlyUser, admin)
 
 /* ALIAS */
-routes.get('/login', (req, res) => res.redirect("session/login"))
+routes.get('/login', (req, res) => { res.redirect("session/login") })
 
 
 module.exports = routes

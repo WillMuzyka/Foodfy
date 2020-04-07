@@ -1,0 +1,22 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+  <div class="fail message-lottie">
+    <div class="fail-lottie"></div>
+    <h2>Ocorreu algum erro no cadastro de Usuário</h2>
+    <p>Não conseguimos realizar o cadastro.</p>
+    <a href="#" onclick="history.back()">Tente Novamente</a>
+  </div>
+
+  <script src="/lottie.min.js" type="text/javascript"></script>
+  <script>
+    const element = document.querySelector('.fail-lottie')
+    lottie.loadAnimation({
+      container: element, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/error.json' // the path to the animation json
+    });
+  </script>
+{% endblock %}

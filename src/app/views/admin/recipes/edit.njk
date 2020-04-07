@@ -1,7 +1,6 @@
 {% extends "admin/layout.njk" %}
 
 {% block styles %}
-  <title>Admin - Foodfy</title>
   <link rel="stylesheet" href="/styles/admin/recipes.css">
 {% endblock %}
 
@@ -17,8 +16,8 @@
     <div class="recipe">
       <form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
         <button class="submit" type="submit">Salvar</button>
-        {% include "admin/recipes/fields.njk" %}
         <input hidden type="text" name="id" value="{{ recipe.id }}">
+        {% include "admin/recipes/fields.njk" %}
       </form>
     </div>
   </section>

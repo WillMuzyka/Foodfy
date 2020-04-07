@@ -2,23 +2,21 @@ const Recipe = require("../../../models/Recipe")
 const RecipeFile = require("../../../models/RecipeFile")
 
 const { showMessage } = require("../../../lib/utils")
-const aboutText = require("../../about")
+const aboutText = require("../../views/normal/about")
 
 module.exports = {
 	async home(req, res) {
 		try {
-			let results = await Recipe.all()
-			let recipes = results.rows
+			let recipes = await Recipe.all()
 
 			const recipesFilePromises = recipes.map(recipe => {
-				return RecipeFile.find(recipe.id)
+				return RecipeFile.findAll(recipe.id)
 			})
-			results = await Promise.all(recipesFilePromises)
-			const files = results
+			const files = await Promise.all(recipesFilePromises)
 
 			recipes = recipes.map((recipe, index) => ({
 				...recipe,
-				src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+				src: `${files[index][0].path.replace("public", "")}`
 			}))
 
 			return res.render('normal/home', {
@@ -38,27 +36,27 @@ module.exports = {
 		try {
 			let { filter, page, limit } = req.query
 			page = page || 1
-			limit = limit || 9
+			limit = limit || 6
 			const offset = limit * (page - 1)
 
 			const params = {
 				filter,
 				limit,
-				offset
+				offset,
+				admin: true,
+				userId: null
 			}
 
-			let results = await Recipe.paginate(params)
-			let recipes = results.rows
+			let recipes = await Recipe.paginate(params)
 
 			const recipesFilePromises = recipes.map(recipe => {
-				return RecipeFile.find(recipe.id)
+				return RecipeFile.findAll(recipe.id)
 			})
-			results = await Promise.all(recipesFilePromises)
-			const files = results
+			const files = await Promise.all(recipesFilePromises)
 
 			recipes = recipes.map((recipe, index) => ({
 				...recipe,
-				src: `${req.protocol}://${req.headers.host}${files[index].rows[0].path.replace("public", "")}`
+				src: `${files[index][0].path.replace("public", "")}`
 			}))
 
 			let total = 1
@@ -71,11 +69,9 @@ module.exports = {
 	},
 	async show(req, res) {
 		try {
-			let results = await Recipe.find(req.params.id)
-			const recipe = results.rows[0]
+			const recipe = await Recipe.find(req.params.id)
 
-			results = await RecipeFile.find(recipe.id)
-			let files = results.rows
+			let files = await RecipeFile.findAll(recipe.id)
 
 			files = addSrcFromPath(files, req)
 

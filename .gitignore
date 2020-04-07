@@ -1,4 +1,7 @@
+package-lock.json
 node_modules/
 .vscode/
 public/images/*
 !public/images/.gitkeep
+!public/images/food
+!public/images/profile

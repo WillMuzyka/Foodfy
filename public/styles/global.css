@@ -136,15 +136,21 @@ body footer p {
 }
 
 /* FILTER */
-header .header-margin form {
-	display: grid;
-	grid-template-columns: 1fr 95px;
+.searchBox {
+	margin: 0 200px;
+	padding: 25px 0;
 	position: absolute;
 	right: 0;
+	top: 0
+}
+
+.searchBox form {
+	display: grid;
+	grid-template-columns: 1fr 95px;
 	grid-gap: 8px;
 }
 
-header form input[name="filter"] {
+.searchBox input[name="filter"] {
 	font-size: 14px;
 	color: var(--color-letter-rights);
 	border: 1px solid #DDD;

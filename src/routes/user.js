@@ -11,6 +11,10 @@ routes.get("/index", SessionValidator.onlyAdmin, UserController.index)
 routes.get("/register", SessionValidator.onlyAdmin, UserController.create)
 routes.post("/register", SessionValidator.onlyAdmin, UserValidator.post, UserController.post)
 
+//success and fail message
+routes.get("/success", UserController.success)
+routes.get("/fail", UserController.fail)
+
 //show
 routes.get("/:id", UserValidator.isOwnerOfAccount, UserController.edit)
 routes.put("/", UserValidator.isOwnerOfAccount, UserValidator.put, UserController.update)

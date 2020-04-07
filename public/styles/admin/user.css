@@ -38,7 +38,7 @@
 }
 
 .users .user:not(:nth-child(7)):not(:nth-child(8)):not(:nth-child(9)) {
-	margin-bottom: 40px;
+	margin-bottom: 32px;
 }
 
 .users .user .user-info .buttons {
