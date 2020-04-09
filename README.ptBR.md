@@ -51,25 +51,27 @@ Este projeto utiliza várias tecnologias e conceitos. Alguns deles estão listad
 
 Para instalar e usar esta aplicação, primeiro tenha certeza de que você tem instalado o node e npm em sua máquina. Ambos são essenciais para o funcionamento da aplicação.
 
-Todo o projeto foi desenvolvido com base no Node.js. Se você quer utilizar esta biblioteca, por favor faça o download de todos os arquivos e instale de acordo com as seguintes instruções.
+Todo o projeto foi desenvolvido com base no Node.js. Se você quer utilizar esta biblioteca, por favor faça o clone deste repositório e verifique as instruções seguintes.
 
 **Passos**
 
-1. Na pasta principal da aplicação, rode o comando `npm install` para instalar todos os pacotes necessários listados no arquivo *`package.json`*. Note que alguns pacotes contêm dependências que serão instalados com este comando e que são necessárias para o funcionamento da aplicação.
+1. Abra o terminal do seu computador e altere o diretório de trabalho para o local que deseja salvar esta aplicação. Rode o código `git clone https://github.com/WillMuzyka/foodfy.git`. Abra a pasta principal usando o comando `cd foodfy`.
 
-2. Esta aplicação requer uma base de dados em que todas as informações das receitas, chefs e usuários são armazenadas. Para isto, eu utilizei o postgreSQL e eles têm uma documentação detalhada em como configurar sua máquina. Por favor, leia as [instruções de instalações](https://www.postgresql.org/docs/12/tutorial-install.html) presentes no site deles para iniciar a base de dados.
+2. Na pasta principal da aplicação, rode o comando `npm install` para instalar todos os pacotes necessários listados no arquivo *`package.json`*. Note que alguns pacotes contêm dependências que serão instalados com este comando e que são necessárias para o funcionamento da aplicação.
 
-3. Após instalar o postgres, você irá precisar do Postbird, um IDE para se comunicar com o servidor. Utilize o mesmo login e senha no arquivo *`src/config/db.jd`*, ou modifique o arquivo para as suas configurações. Se você estiver utilizando uma porta diferente da padrão, será necessário também modificar isto no arquivo.
+3. Esta aplicação requer uma base de dados em que todas as informações das receitas, chefs e usuários são armazenadas. Para isto, eu utilizei o postgreSQL e eles têm uma documentação detalhada em como configurar sua máquina. Por favor, leia as [instruções de instalações](https://www.postgresql.org/docs/12/tutorial-install.html) presentes no site deles para iniciar a base de dados.
 
-4. Abra o Postbird e rode a query `CREATE DATABASE foodfy;`. Isto irá iniciar uma nova base de dados. Após isso, rode o código presente em "data/db.sql", ignorando os três primeiros comandos: eles são para criação da base de dados e limpeza de possíveis resíduos, você não irá precisar disto na primeira instalação. Rode todos os comando após o comentário *`--create the table`*.
+4. Após instalar o postgres, você irá precisar do Postbird, um IDE para se comunicar com o servidor. Utilize o mesmo login e senha no arquivo *`src/config/db.jd`*, ou modifique o arquivo para as suas configurações. Se você estiver utilizando uma porta diferente da padrão, será necessário também modificar isto no arquivo.
 
-5. Com a base de dados configurada, rode o comando `node data/seed.js` na pasta principal. Isso irá popular a base de dados com valores aleatórios de receitas, chefs e usuários (a **senha padrão** dos usuários é **`asd`**). No futuro, caso não seja necessite disso, você pode deletar as pastas "food" e "profiles" de "public/images". Elas são imagens para o seed de receitas e chefs. Caso deseje reiniciar os dados, pode rodar os comandos presentes em "data/cleanDb.sql" (primeiro bloco para derrubar a base de dados e restante para limpar tabelas).
+5. Abra o Postbird e rode a query `CREATE DATABASE foodfy;`. Isto irá iniciar uma nova base de dados. Após isso, rode o código presente em "data/db.sql", ignorando os três primeiros comandos: eles são para criação da base de dados e limpeza de possíveis resíduos, você não irá precisar disto na primeira instalação. Rode todos os comando após o comentário *`--create the table`*.
 
-6. Na situação atual do projeto, o sistema não irá enviar um e-mail para o usuário (em situações de "registro" e "esqueceu a senha"). Os e-mails são enviados para o [Mailtrap](https://mailtrap.io/), um serviço gratuito. Por favor, crie uma conta na plataforma e use as configurações em "integration" para `nodemailer`. Você deve alterar com suas próprias informações em *`src/lib/mailer.js`*.
+6. Com a base de dados configurada, rode o comando `node data/seed.js` na pasta principal. Isso irá popular a base de dados com valores aleatórios de receitas, chefs e usuários (a **senha padrão** dos usuários é **`asd`**). No futuro, caso não seja necessite disso, você pode deletar as pastas "food" e "profiles" de "public/images". Elas são imagens para o seed de receitas e chefs. Caso deseje reiniciar os dados, pode rodar os comandos presentes em "data/cleanDb.sql" (primeiro bloco para derrubar a base de dados e restante para limpar tabelas).
 
-7. Após a instalação dos pacotes, rode o comando `npm start` para inicializar o servidor. Isso irá continuar executando até a finalização da aplicação (Ctrl + C). Este aplicativo não irá rodar em segundo plano, então é necessário manter a janela aberta. Essa aplicação usa a porta `:5000` (e `:3000` se você utilizar nodemon ou `:9229` para debug), então tenha cuidado para não haver outra aplicação rodando na mesma porta.
+7. Na situação atual do projeto, o sistema não irá enviar um e-mail para o usuário (em situações de "registro" e "esqueceu a senha"). Os e-mails são enviados para o [Mailtrap](https://mailtrap.io/), um serviço gratuito. Por favor, crie uma conta na plataforma e use as configurações em "integration" para `nodemailer`. Você deve alterar com suas próprias informações em *`src/lib/mailer.js`*.
 
-8. Aproveite a aplicação!
+8. Após a instalação dos pacotes, rode o comando `npm start` para inicializar o servidor. Isso irá continuar executando até a finalização da aplicação (Ctrl + C). Este aplicativo não irá rodar em segundo plano, então é necessário manter a janela aberta. Essa aplicação usa a porta `:5000` (e `:3000` se você utilizar nodemon ou `:9229` para debug), então tenha cuidado para não haver outra aplicação rodando na mesma porta.
+
+9. Aproveite a aplicação!
 
 ## :warning: Rocketseat
 ### Se você faz parte da equipe da Rocketseat, por favor leia o texto a seguir, ele contém algumas informações importantes sobre o projeto
