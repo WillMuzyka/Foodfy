@@ -3,7 +3,7 @@ const { compare } = require('bcryptjs')
 
 module.exports = {
 	async login(req, res, next) {
-		//verificar email
+		// verify email
 		const { email, password } = req.body
 		const user = await User.findOne({
 			where: { email }
@@ -14,7 +14,7 @@ module.exports = {
 				user: req.body,
 				error: "Usuário não cadastrado"
 			})
-		//verificar senha
+		// verify password
 		const passed = await compare(password, user.password)
 		if (!passed)
 			return res.render("normal/session/login", {
@@ -27,7 +27,7 @@ module.exports = {
 		next()
 	},
 	async forgot(req, res, next) {
-		//verificar email
+		// verify email
 		const { email } = req.body
 		const user = await User.findOne({
 			where: { email }
@@ -45,7 +45,7 @@ module.exports = {
 	},
 	async reset(req, res, next) {
 		let { email, password, passwordRepeat, token } = req.body
-		//verificar email
+		// verify email
 		const user = await User.findOne({
 			where: { email }
 		})
@@ -58,7 +58,7 @@ module.exports = {
 			})
 		}
 
-		//verificar token
+		// verify token
 		if (user.reset_token != token) {
 			return res.render("normal/session/password-reset", {
 				user: req.body,
@@ -76,7 +76,7 @@ module.exports = {
 			})
 		}
 
-		//verificar senha
+		// verify password
 		if (password != passwordRepeat)
 			return res.render("normal/session/password-reset", {
 				user: req.body,
@@ -90,12 +90,12 @@ module.exports = {
 	},
 	async firstLogin(req, res, next) {
 		let { email, password, passwordRepeat, token } = req.body
-		//find user by email
+		// find user by email
 		const user = await User.findOne({
 			where: { email }
 		})
 
-		//verificar token
+		// verify token
 		if (user.reset_token != token) {
 			return res.render("normal/session/password-reset", {
 				user: req.body,
@@ -113,7 +113,7 @@ module.exports = {
 			})
 		}
 
-		//verificar senha
+		// verify password
 		if (password != passwordRepeat)
 			return res.render("normal/session/password-reset", {
 				user: req.body,
@@ -126,16 +126,19 @@ module.exports = {
 		next()
 	},
 	onlyUser(req, res, next) {
+		// verify if there's a session userId
 		if (!req.session.userId)
 			return res.redirect("/session/login?mes=uo")
 		next()
 	},
 	onlyAdmin(req, res, next) {
+		// verify if there's a session admin
 		if (!req.session.admin)
 			return res.redirect("/admin/recipes?mes=ar")
 		next()
 	},
 	isLogged(req, res, next) {
+		// verify if there's a session userId, redirecting if it's true
 		if (req.session.userId) {
 			let route = "/admin"
 			const { mes, suc } = req.query

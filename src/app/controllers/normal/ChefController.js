@@ -4,25 +4,29 @@ const RecipeFile = require("../../../models/RecipeFile")
 
 module.exports = {
 	async index(req, res) {
-		let { filter, page, limit } = req.query
-		page = page || 1
-		limit = limit || 12
-		const offset = limit * (page - 1)
+		try {
+			let { filter, page, limit } = req.query
+			page = page || 1
+			limit = limit || 12
+			const offset = limit * (page - 1)
 
-		let chefs = await Chef.paginate({
-			filter,
-			limit,
-			offset
-		})
+			let chefs = await Chef.paginate({
+				filter,
+				limit,
+				offset
+			})
 
-		chefs = chefs.map(chef => ({
-			...chef,
-			src: `${chef.path.replace("public", "")}`
-		}))
+			chefs = chefs.map(chef => ({
+				...chef,
+				src: `${chef.path.replace("public", "")}`
+			}))
 
-		let total = 1
-		if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
-		return res.render('normal/chefs/index', { chefs, filter, page, total, limit })
+			let total = 1
+			if (chefs[0]) total = Math.ceil(chefs[0].total / limit)
+			return res.render('normal/chefs/index', { chefs, filter, page, total, limit })
+		} catch (error) {
+			console.error(error);
+		}
 	},
 	async show(req, res) {
 		try {

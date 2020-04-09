@@ -1,3 +1,4 @@
+// configuration for the database
 const { Pool } = require("pg")
 
 module.exports = new Pool({

@@ -22,8 +22,10 @@ nunjucks.configure('src/app/views', {
 })
 server.use(routes)
 
+// 404 page
 server.use((req, res) => {
 	res.status(404).render("err", { errorText: "Página não encontrada (status 404)" })
 })
 
+// port listening
 server.listen(5000, () => console.log('Server is running!'))

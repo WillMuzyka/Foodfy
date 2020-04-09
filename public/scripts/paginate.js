@@ -4,6 +4,8 @@ const page = +pagination.dataset.page
 const limit = +pagination.dataset.limit
 const filter = pagination.dataset.filter
 
+// this function creates a index of pages based on the number of pages
+// and the current page, returning and array with the index
 paginate = (total, page) => {
 	if (total == 1) return []
 
@@ -23,6 +25,7 @@ paginate = (total, page) => {
 	return (pageIndex)
 }
 
+// create all the elements based on the pages index array
 let elements = []
 for (index of paginate(total, page)) {
 	//if there's a filter
@@ -38,4 +41,5 @@ for (index of paginate(total, page)) {
 	else elements += `<a href="?${extraURL}page=${index}">${index}</a>`
 }
 
+//add the elements on the document
 pagination.innerHTML = elements

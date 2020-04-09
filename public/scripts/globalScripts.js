@@ -1,9 +1,10 @@
-
+// functions for images upload (recipes)
 const ImageUpload = {
 	files: [],
 	input: "",
 	preview: document.querySelector(".item #photo-preview"),
 	uploadLimit: 5,
+	// main function, called by the user, that handles the file input
 	handleFileInput(event) {
 		ImageUpload.input = event.target
 		const { files: filesList } = event.target
@@ -27,6 +28,7 @@ const ImageUpload = {
 		})
 		ImageUpload.input.files = ImageUpload.getAllFiles()
 	},
+	// check the limit of images, if the user tries to send more, blocks it
 	hasLimit(event) {
 		const { uploadLimit, input, preview } = ImageUpload
 		const { files: filesList } = input
@@ -56,6 +58,7 @@ const ImageUpload = {
 
 		return false
 	},
+	// check if the user is trying to delete all the images and block it
 	hasMinimum(event) {
 		const { input, preview } = ImageUpload
 
@@ -73,6 +76,9 @@ const ImageUpload = {
 
 		return true
 	},
+	// get all the files send by the user and updates it
+	// this is required on deletion of images, as you can't
+	// change file lists
 	getAllFiles() {
 		const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
 
@@ -80,6 +86,7 @@ const ImageUpload = {
 
 		return dataTransfer.files
 	},
+	// create a container to preview the uploading images
 	getContainer(image) {
 		const div = document.createElement("div")
 		div.classList.add("photo")
@@ -88,6 +95,7 @@ const ImageUpload = {
 		div.appendChild(ImageUpload.getRemoveButton())
 		return div
 	},
+	// create a delete button for the preview container
 	getRemoveButton() {
 		const button = document.createElement("i")
 		button.classList.add("material-icons")
@@ -96,6 +104,7 @@ const ImageUpload = {
 
 		return button
 	},
+	// remove an image that is being uploaded
 	removeImage(event) {
 		const photoDiv = event.target.parentNode
 		const photosArray = Array.from(ImageUpload.preview.children)
@@ -108,6 +117,7 @@ const ImageUpload = {
 		ImageUpload.input.files = ImageUpload.getAllFiles()
 		photoDiv.remove()
 	},
+	//remove an image that was already uploaded
 	removeOldImage(event) {
 		const photoDiv = event.target.parentNode
 
@@ -122,6 +132,7 @@ const ImageUpload = {
 
 const AvatarUpload = {
 	input: "",
+	// main function, called by the user, that handles the file input
 	handleFileInput(event) {
 		AvatarUpload.input = event.target
 		const { files } = event.target
@@ -129,6 +140,7 @@ const AvatarUpload = {
 		const textInput = document.querySelector(".chef #avatar_src")
 		if (textInput) textInput.innerHTML = files[0].name
 	},
+	// check if there's at least one image being send by the user
 	hasMinimum(event) {
 		const { input } = AvatarUpload
 		const { files: filesList } = input

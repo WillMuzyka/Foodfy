@@ -4,6 +4,7 @@ const routes = express.Router()
 const UserController = require('../app/controllers/admin/UserController')
 const UserValidator = require('../app/validators/user')
 const SessionValidator = require('../app/validators/session')
+
 //index
 routes.get("/index", SessionValidator.onlyAdmin, UserController.index)
 
