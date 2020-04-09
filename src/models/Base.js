@@ -1,4 +1,5 @@
 const db = require("../config/db")
+const separateWith = '","'
 
 function find(fields, table) {
 	let query = `SELECT * FROM ${table}`
@@ -22,7 +23,7 @@ module.exports = {
 			Object.keys(fields).map(key => {
 				tags.push(key)
 				if (Array.isArray(fields[key]))
-					values.push(`'{ ${fields[key].join(",")} }'`)
+					values.push(`'{ "${fields[key].join(separateWith)}" }'`)
 				else
 					values.push(`'${fields[key]}'`)
 			})
@@ -31,6 +32,7 @@ module.exports = {
 				VALUES (${values.join(",")})
 				RETURNING id`
 
+			console.log(query)
 			const results = await db.query(query)
 			return results.rows[0].id
 		}
@@ -56,7 +58,7 @@ module.exports = {
 		Object.keys(fields).map((key, index, array) => {
 			if (fields[key] != null) {
 				if (Array.isArray(fields[key]))
-					query += ` ${key} = '{${fields[key]}}'`
+					query += ` ${key} = '{ "${fields[key].join(separateWith)}" }'`
 				else
 					query += ` ${key} = '${fields[key]}'`
 			} else {
