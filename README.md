@@ -53,25 +53,27 @@ This project used a lot of technologies and concepts. A few of them are listed b
 
 To install and use this application, first be sure that you have node and npm installed. They are essential for running the application.
 
-The whole project was made based on Node.js. If you want to use this library, please download all the files and install according to the following steps.
+The whole project was made based on Node.js. If you want to use this library, please clone this repository and check the following steps.
 
 **Steps**
 
-1. In the main folder, run the command `npm install` to install all the required packages listed on the file *`package.json`*. Note that some packages also have dependencies that are all being installed with this command and are required to the application.
+1. Open your computer's terminal and change for the directory that you want to keep this application. Run the code `git clone https://github.com/WillMuzyka/foodfy.git`. Open the main folder using `cd foodfy`.
 
-2. This application requires a database where all the info from recipes, chefs and users are stored. For this I used the postgreSQL and they have a rich documentation on how to setup your machine. Please, refer to [their instructions](https://www.postgresql.org/docs/12/tutorial-install.html) to start the database.
+2. In the main folder, run the command `npm install` to install all the required packages listed on the file *`package.json`*. Note that some packages also have dependencies that are all being installed with this command and are required to the application.
 
-3. After installing the postgres, you'll need Postbird, an IDE to communicate with the server. Use the same login and password on the file *`src/config/db.jd`*, or change the file for your own settings. If you're using a different port from default, please be aware that you also need to change that on the file.
+3. This application requires a database where all the info from recipes, chefs and users are stored. For this I used the postgreSQL and they have a rich documentation on how to setup your machine. Please, refer to [their instructions](https://www.postgresql.org/docs/12/tutorial-install.html) to start the database.
 
-4. Open the Postbird and run the query `CREATE DATABASE foodfy;`. This will start a new database. After that, run the code in "data/db.sql", skipping the first three commands: they are for creating the database and cleaning any possible residues, you won't need that on the first installation. Run everything after the comment *`--create the table`*.
+4. After installing the postgres, you'll need Postbird, an IDE to communicate with the server. Use the same login and password on the file *`src/config/db.jd`*, or change the file for your own settings. If you're using a different port from default, please be aware that you also need to change that on the file.
 
-5. With the database setup, run the command `node data/seed.js` in the main folder. This will populate the database with some random data in recipes, chefs and users (the default **password** is **`asd`**). In future, with you don't need this, you can also delete the folders "food" and "profile" from "public/images". These are image placeholders for this seed's recipes and chefs. If you want to reboot the database, you can run the commands in "data/cleanDb.sql" (first block of code for dropping the database and the ramaining for cleaning the tables).
+5. Open the Postbird and run the query `CREATE DATABASE foodfy;`. This will start a new database. After that, run the code in "data/db.sql", skipping the first three commands: they are for creating the database and cleaning any possible residues, you won't need that on the first installation. Run everything after the comment *`--create the table`*.
 
-6. In the current stage of this project, the system will not send a email for users (register and forgot-password situations). The emails are being send to [Mailtrap](https://mailtrap.io/), a free service. Please, create an account there and use the configuration for integration on `nodemailer`. You have to change for your own data on *`src/lib/mailer.js`*.
+6. With the database setup, run the command `node data/seed.js` in the main folder. This will populate the database with some random data in recipes, chefs and users (the default **password** is **`asd`**). In future, with you don't need this, you can also delete the folders "food" and "profile" from "public/images". These are image placeholders for this seed's recipes and chefs. If you want to reboot the database, you can run the commands in "data/cleanDb.sql" (first block of code for dropping the database and the ramaining for cleaning the tables).
 
-6. After installing the packages, run the command `npm start` to start the server. This will keep running until you end the application (Ctrl + C) or close the window that is running. It will not run in the background, so you need to keep the window open. This application uses the port `:5000` (and `:3000` if you're using nodemon or `:9229` for debugging), so be careful to not have another application trying to run on the same port.
+7. In the current stage of this project, the system will not send a email for users (register and forgot-password situations). The emails are being send to [Mailtrap](https://mailtrap.io/), a free service. Please, create an account there and use the configuration for integration on `nodemailer`. You have to change for your own data on *`src/lib/mailer.js`*.
 
-7. Enjoy the application!
+8. After installing the packages, run the command `npm start` to start the server. This will keep running until you end the application (Ctrl + C) or close the window that is running. It will not run in the background, so you need to keep the window open. This application uses the port `:5000` (and `:3000` if you're using nodemon or `:9229` for debugging), so be careful to not have another application trying to run on the same port.
+
+9. Enjoy the application!
 
 ## :warning: Rocketseat
 ### If you're part of Rocketseat Team, please read the following text, it contains some important information regarding this project 
