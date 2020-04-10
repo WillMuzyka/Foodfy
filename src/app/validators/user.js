@@ -41,13 +41,11 @@ module.exports = {
 	isOwnerOfAccount(req, res, next) {
 		// ignores if is admin
 		if (req.session.admin) {
-			next()
-			return
+			return next()
 		}
 		// ignores if it's the owner of the account
 		else if (req.params.id == req.session.userId || req.body.id == req.session.userId) {
-			next()
-			return
+			return next()
 		}
 
 		return res.redirect("/users/index?mes=ao")
@@ -62,8 +60,7 @@ module.exports = {
 	async isOwnerOfRecipe(req, res, next) {
 		// ignores if is admin
 		if (req.session.admin) {
-			next()
-			return
+			return next()
 		}
 		// get the recipe and check if it's the owner
 		const recipes = await User.getRecipes(req.session.userId)
@@ -77,8 +74,7 @@ module.exports = {
 	async canShowEditButton(req, res, next) {
 		// ignores if is admin
 		if (req.session.admin) {
-			next()
-			return
+			return next()
 		}
 		// get the recipe and check if it's the owner
 		const recipes = await User.getRecipes(req.session.userId)
