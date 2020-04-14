@@ -85,7 +85,7 @@ Esse projeto satisfaz todos os pré-requisitos dos desafios e exercícios do cur
 * Adicionado transições para maioria dos botões;
 * Quando acessado por alguém que não é administrador, alguns botões são ocultados (ou alterados) na área administrativa, como o botão de chefs que é ocultado (uma vez que um usuário regular não pode adicionar, modificar ou deletar um chef) e o botão de usuários é alterado para "Conta" (já que um usuário só pode alterar sua própria conta);
 * Adicionado Base.js em *models*, com funções base para outros *models*;
-* Adicionado um arquivo de seed, criando dados em receitas, chefs e usuários;
+* Adicionado imagens padrão para o arquivo de seed. Essas imagens não são excluídas mesmo se os usuários, receitas ou chefs forem deletados;
 * Adicionado animações na criação de usuário (sucesso e falha).
 
 No meu ponto de vista, essas mudanças melhoram a aplicação e não tem o propósito de substituir qualquer outro requisito deste desafio.
