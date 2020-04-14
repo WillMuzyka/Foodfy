@@ -52,7 +52,7 @@ async function createUser() {
 		//push the defined number of users into an array
 		while (users.length < totalUsers) {
 			users.push({
-				name: faker.name.findName(),
+				name: `${faker.name.firstName()} ${faker.name.lastName()}`.replace("'", ""),
 				email: faker.internet.email(),
 				password,
 				is_admin: Math.random() > 0.5
@@ -91,7 +91,7 @@ async function createChef() {
 		//have both the file_id and the name for the chefs
 		filesId.map(id => {
 			chefs.push({
-				name: faker.name.findName(),
+				name: `${faker.name.firstName()} ${faker.name.lastName()}`.replace("'", ""),
 				file_id: id
 			})
 		})
