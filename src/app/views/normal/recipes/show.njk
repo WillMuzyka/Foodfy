@@ -48,11 +48,13 @@
           {% endfor %}
         </ul>
       </div>
+      {% if not (recipe.information == "") %}
       <div class="topic three">
         <h2>Informações Adicionais</h2>
         <p class="showText">Esconder</p>
         <p class="info">{{ recipe.information }}</p>
       </div>
+      {% endif %}
     </div>
   </section>
 {% endblock %}
