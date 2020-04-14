@@ -28,13 +28,19 @@ module.exports = {
 			where: { email }
 		})
 		if (results && email != userBeingEdit.email) {
-			return res.redirect("/session/login?mes=ei")
+			return res.render("admin/users/edit", {
+				user: req.body,
+				error: "Este Email já está sendo utilizado."
+			})
 		}
 		// verify the password, if you're changing own account
 		if (id == req.session.userId) {
 			const passed = await compare(password, userBeingEdit.password)
 			if (!passed)
-				return res.redirect("/session/login?mes=pi")
+				return res.render("admin/users/edit", {
+					user: req.body,
+					error: "Senha incorreta."
+				})
 		}
 		next()
 	},
