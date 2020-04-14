@@ -53,7 +53,9 @@ module.exports = {
 					<p>Caso você não tenha solicitado o reset de senha, desconsidere este email.</p>`
 			})
 
-			return res.redirect("/login")
+			return res.render("normal/session/login", {
+				success: `Email enviado, verifique sua caixa de entrada.`
+			})
 		}
 		catch (err) {
 			return res.render("normal/session/forgot-password", {
@@ -76,7 +78,9 @@ module.exports = {
 				reset_token_expires: null,
 			})
 
-			return res.redirect("/login")
+			return res.render("normal/session/login", {
+				success: `Senha atualizada!`
+			})
 		}
 		catch (err) {
 			return res.render("normal/session/password-reset", {
