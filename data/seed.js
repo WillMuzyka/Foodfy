@@ -25,72 +25,89 @@ let recipesId = []
 
 //this function create the path for the profile pictures (avatar)
 function createProfileAvatarArray() {
+	console.time('Creating Users Avatar Files')
 	for (let i = 0; i < 6; i++) {
 		avatarArray.push(`public/images/profile/w${i + 1}.jpg`)
 		avatarArray.push(`public/images/profile/m${i + 1}.jpg`)
 	}
+	console.timeEnd('Creating Users Avatar Files')
 }
 
 //this function create the path for the food images
 function createFoodImagesArray() {
+	console.time('Creating Food Image Files')
 	for (let i = 0; i < 15; i++) {
 		foodImageArray.push(`public/images/food/f${i + 1}.jpg`)
 	}
+	console.timeEnd('Creating Food Image Files')
 }
 
 //this function creates the users
 async function createUser() {
-	let users = []
-	//default password as 'asd'
-	const password = await hash('asd', 8)
-	//push the defined number of users into an array
-	while (users.length < totalUsers) {
-		users.push({
-			name: faker.name.firstName(),
-			email: faker.internet.email(),
-			password,
-			is_admin: Math.random() > 0.5
-		})
+	try {
+		console.time('Creating Users')
+		let users = []
+		//default password as 'asd'
+		const password = await hash('asd', 8)
+		//push the defined number of users into an array
+		while (users.length < totalUsers) {
+			users.push({
+				name: faker.name.findName(),
+				email: faker.internet.email(),
+				password,
+				is_admin: Math.random() > 0.5
+			})
+		}
+		//create the users
+		const usersPromise = users.map(user => User.create(user))
+		usersId = await Promise.all(usersPromise)
+		console.timeEnd('Creating Users')
+	} catch (error) {
+		console.error(error);
 	}
-	//create the users
-	const usersPromise = users.map(user => User.create(user))
-	usersId = await Promise.all(usersPromise)
 }
 
 //this function creates the chefs
 async function createChef() {
-	// ~~FILES
-	let files = []
-	//push the profile pictures into an array of objects that
-	//have both the path and the name for the pictures
-	avatarArray.map(path => {
-		files.push({
-			name: faker.image.food(),
-			path
+	try {
+		console.time('Creating Chefs')
+		// ~~FILES
+		let files = []
+		//push the profile pictures into an array of objects that
+		//have both the path and the name for the pictures
+		avatarArray.map(path => {
+			files.push({
+				name: faker.image.food(),
+				path
+			})
 		})
-	})
-	//create the files (profile pictures of chefs)
-	const filesPromise = files.map(file => File.create(file))
-	const filesId = await Promise.all(filesPromise)
+		//create the files (profile pictures of chefs)
+		const filesPromise = files.map(file => File.create(file))
+		const filesId = await Promise.all(filesPromise)
 
-	// ~~CHEFS
-	let chefs = []
-	//push the files into an array of objects that
-	//have both the file_id and the name for the chefs
-	filesId.map(id => {
-		chefs.push({
-			name: faker.name.firstName(),
-			file_id: id
+		// ~~CHEFS
+		let chefs = []
+		//push the files into an array of objects that
+		//have both the file_id and the name for the chefs
+		filesId.map(id => {
+			chefs.push({
+				name: faker.name.findName(),
+				file_id: id
+			})
 		})
-	})
-	//create the chefs
-	const chefsPromise = chefs.map(chef => Chef.create(chef))
-	chefsId = await Promise.all(chefsPromise)
+		//create the chefs
+		const chefsPromise = chefs.map(chef => Chef.create(chef))
+		chefsId = await Promise.all(chefsPromise)
+		console.timeEnd('Creating Chefs')
+	} catch (error) {
+		console.error(error);
+	}
 }
 
 //this function creates the recipes
 async function createRecipe() {
 	try {
+		console.time('Creating Recipes')
 		// ~~FILES
 		let files = []
 		//push the files with the food images
@@ -122,7 +139,7 @@ async function createRecipe() {
 			recipes.push({
 				chef_id: chefsId[Math.floor(Math.random() * chefsId.length)],
 				user_id: usersId[Math.floor(Math.random() * usersId.length)],
-				title: faker.commerce.product(),
+				title: faker.commerce.productName(),
 				ingredients: `{${ingredients.join(',')}}`,
 				preparation: `{${preparation.join(',')}}`,
 				information: faker.lorem.paragraphs(Math.ceil(Math.random() * 3))
@@ -146,6 +163,7 @@ async function createRecipe() {
 		//create the relation between the files and recipes (a third table)
 		const recipesFilesPromise = recipe_files.map(rf => RecipeFile.create(rf))
 		await Promise.all(recipesFilesPromise)
+		console.timeEnd('Creating Recipes')
 	} catch (error) {
 		console.error(error)
 	}
@@ -153,11 +171,19 @@ async function createRecipe() {
 
 //function that runs the seed in the correct order
 async function init() {
-	createProfileAvatarArray()
-	createFoodImagesArray()
-	await createUser()
-	await createChef()
-	await createRecipe()
+	try {
+		console.time('All fake data created')
+		createProfileAvatarArray()
+		createFoodImagesArray()
+		await createUser()
+		await createChef()
+		await createRecipe()
+		console.timeEnd('All fake data created')
+		console.log("You're ready to go!")
+	} catch (error) {
+		console.error(error)
+	}
+	
 }
 
 init()
