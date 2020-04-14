@@ -31,8 +31,7 @@ module.exports = {
 			const query = `INSERT INTO ${this.table} (${tags.join(",")})
 				VALUES (${values.join(",")})
 				RETURNING id`
-
-			console.log(query)
+				
 			const results = await db.query(query)
 			return results.rows[0].id
 		}
