@@ -87,7 +87,7 @@ This project follows all the prerequisites from the challenges and exercises on 
 * Added transitions for most of the buttons;
 * When not an admin, some buttons hide (or change) on the admin area, as the chefs button being hidden (since a regular user can't add, modify or delete a chef) and the users button being changed to "Account" (since the regular user can only edit its own account);
 * Added the Base.js in models, with common functions for other models;
-* Added a seed file, creating random data in recipes, chefs and users;
+* Added some default images for the seed file. These images are not deleted even when the user, recipe or chef is deleted;
 * Added animations when creating a user (success or error/fail).
 
 In my point of view, these changes are for better improving the application and are not intended to substitute any other requirement from this challenge.
