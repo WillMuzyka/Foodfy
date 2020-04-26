@@ -30,4 +30,4 @@ server.use((req, res) => {
 })
 
 // port listening
-server.listen(5000, () => console.log('Server is running!'))
+server.listen(process.env.PORT || 5000, () => console.log('Server is running!'))
