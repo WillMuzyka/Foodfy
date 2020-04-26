@@ -3,9 +3,13 @@
 	"version": "1.0.0",
 	"description": "Desafio Foodfy proposto pela Rocketseat no Bootcamp Launchbase",
 	"main": "server.js",
+	"engines": {
+    "node": "12.16.2"
+  },
 	"scripts": {
 		"debug": "nodemon --inspect=0.0.0.0:9229 src/server.js",
-		"start": "npm-run-all -p nodemon browsersync",
+		"dev": "npm-run-all -p nodemon browsersync",
+		"start": "node src/server.js",
 		"nodemon": "nodemon src/server.js",
 		"browsersync": "browser-sync start --proxy http://localhost:5000 --files 'public, controllers, src'"
 	},
