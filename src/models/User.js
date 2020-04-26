@@ -35,7 +35,7 @@ module.exports = {
 		return results.rows
 	},
 	async getRecipes(id) {
-		const results = await db.query(`SELECT recipes.id FROM recipes WHERE user_id = ${id}`)
+		const results = await db.query(`SELECT recipes.id FROM recipes WHERE user_id = '${id}'`)
 		return results.rows
 	}
 }

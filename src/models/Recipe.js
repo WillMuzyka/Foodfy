@@ -20,7 +20,7 @@ module.exports = {
 		SELECT recipes.*, chefs.name author
 		FROM recipes
 		LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-		WHERE recipes.id = ${id}`
+		WHERE recipes.id = '${id}'`
 
 		const results = await db.query(query)
 		return results.rows[0]
@@ -47,7 +47,7 @@ module.exports = {
 			if (filter)
 				filterQuery = `${filterQuery} AND recipes.user_id = ${userId}`
 			else
-				filterQuery = `WHERE recipes.user_id = ${userId}`
+				filterQuery = `WHERE recipes.user_id = '${userId}'`
 		}
 
 		const totalQuery = `(

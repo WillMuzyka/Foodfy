@@ -22,7 +22,7 @@ module.exports = {
 		FROM chefs
 		LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
 		JOIN files ON (files.id = chefs.file_id)
-		WHERE chefs.id = ${id}
+		WHERE chefs.id = '${id}'
 		GROUP BY files.path, chefs.id
 		ORDER BY chefs.id`
 

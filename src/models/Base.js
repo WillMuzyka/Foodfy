@@ -67,13 +67,14 @@ module.exports = {
 			if (index + 1 < array.length)
 				query = `${query},`
 			else
-				query = `${query} WHERE id = ${id}`
+				query = `${query} WHERE id = '${id}'`
 		})
 
+		console.log(query)
 		return db.query(query)
 	},
 	delete(id) {
-		const query = `DELETE FROM ${this.table} WHERE id = ${id}`
+		const query = `DELETE FROM ${this.table} WHERE id = '${id}'`
 
 		return db.query(query)
 	},

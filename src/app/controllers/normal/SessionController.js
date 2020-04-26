@@ -58,6 +58,8 @@ module.exports = {
 			})
 		}
 		catch (err) {
+			console.error(err);
+			
 			return res.render("normal/session/forgot-password", {
 				user: req.body,
 				error: "Erro ao realizar solicitação."
