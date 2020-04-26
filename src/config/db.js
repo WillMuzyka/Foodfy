@@ -1,5 +1,5 @@
 // configuration for the database
-const { Pool } = require("pg")
+const { Pool, Client } = require("pg")
 
 function generateDB() {
 	if(process.env.NODE_ENV === 'development') {
