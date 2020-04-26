@@ -2,12 +2,13 @@ require('dotenv').config()
 
 const express = require('express')
 const nunjucks = require('nunjucks')
+const cors = require('cors')
 const routes = require('./routes')
 const methodOverride = require('method-override')
 const session = require('./config/session')
-
 const server = express()
 
+server.use(cors())
 server.use(session)
 server.use((req, res, next) => {
 	res.locals.session = req.session

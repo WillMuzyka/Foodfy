@@ -4,8 +4,8 @@
 	"description": "Desafio Foodfy proposto pela Rocketseat no Bootcamp Launchbase",
 	"main": "server.js",
 	"engines": {
-    "node": "12.16.2"
-  },
+		"node": "12.16.2"
+	},
 	"scripts": {
 		"debug": "nodemon --inspect=0.0.0.0:9229 src/server.js",
 		"dev": "npm-run-all -p nodemon browsersync",
@@ -18,6 +18,7 @@
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
 		"connect-pg-simple": "^6.1.0",
+		"cors": "^2.8.5",
 		"crypto": "^1.0.1",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
