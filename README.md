@@ -30,6 +30,7 @@ Read in other languages:&nbsp&nbsp&nbsp&nbsp
 </p>
 <br />
 
+If you want to see the website, you can access [HERE](https://foodfyteste.herokuapp.com/) for a preview.
 This is a platform with recipes from different chefs, all with images, ingredients, steps to follow through and tips. The user can see all the recipes that are registered, the chefs and, with you have an user account, you can add your own recipes.
 
 - Project developed during the Launchbase Bootcamp.
