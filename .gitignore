@@ -4,3 +4,4 @@ public/images/*
 !public/images/.gitkeep
 !public/images/food
 !public/images/profile
+.env
