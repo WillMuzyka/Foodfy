@@ -29,6 +29,8 @@ Leia em outras línguas:&nbsp&nbsp&nbsp&nbsp
 <a  href="README.ptBR.md">Português</a>
 </p>
 <br />
+
+Se você quiser ver o website, você pode accessar [AQUI](https://foodfyteste.herokuapp.com/) para uma preview.
 Esta é uma plataforma com receitas de diferentes chefs, todas com imagens, ingredientes, passo-a-passo e dicas. Os usuários conseguem ver todas as receitas registradas, assim como os chefs e, com uma conta de usuário, pode até adicionar suas próprias receitas.
 
 - Projeto desenvolvido durante o Bootcamp Launchbase.
