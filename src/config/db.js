@@ -1,8 +1,6 @@
 // configuration for the database
 const { Pool } = require("pg")
 
-console.log(process.env.DB_HOST)
-
 module.exports = new Pool({
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
