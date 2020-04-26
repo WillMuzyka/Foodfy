@@ -4,30 +4,33 @@ CREATE DATABASE foodfy;
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 
+-- to use uuid
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- create the tables
 CREATE TABLE "chefs"(
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT(uuid_generate_v4()),
 	"name" TEXT NOT NULL,
-	"file_id" INT,
+	"file_id" UUID,
 	"created_at" TIMESTAMP DEFAULT(now())
 );
 
 CREATE TABLE "files"(
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT(uuid_generate_v4()),
 	"name" TEXT,
 	"path" TEXT NOT NULL
 );
 
 CREATE TABLE "recipe_files"(
-  "id" SERIAL PRIMARY KEY,
-	"recipe_id" INT NOT NULL,
-	"file_id" INT NOT NULL
+  "id" UUID PRIMARY KEY DEFAULT(uuid_generate_v4()),
+	"recipe_id" UUID NOT NULL,
+	"file_id" UUID NOT NULL
 );
 
 CREATE TABLE "recipes"(
-  "id" SERIAL PRIMARY KEY,
-	"chef_id" INT NOT NULL,
-	"user_id" INT NOT NULL,
+  "id" UUID PRIMARY KEY DEFAULT(uuid_generate_v4()),
+	"chef_id" UUID NOT NULL,
+	"user_id" UUID NOT NULL,
 	"title" TEXT NOT NULL,
 	"ingredients" TEXT[],
 	"preparation" TEXT[],
@@ -37,7 +40,7 @@ CREATE TABLE "recipes"(
 );
 
 CREATE TABLE "users"(
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT(uuid_generate_v4()),
 	"name" TEXT NOT NULL,
 	"email" TEXT UNIQUE NOT NULL,
 	"password" TEXT NOT NULL,
