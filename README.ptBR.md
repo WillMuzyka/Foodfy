@@ -31,6 +31,14 @@ Leia em outras línguas:&nbsp&nbsp&nbsp&nbsp
 <br />
 
 Se você quiser ver o website, você pode accessar [AQUI](https://foodfyteste.herokuapp.com/) para uma preview.
+
+<div display="flex" flex-direction="row" align="center">
+  <img src=".gitassets/Foodfy.gif" width="427" height="240" align="center"/>
+  <a href="https://youtu.be/Y1F_ozr3I4A" target="blank">
+    <img src=".gitassets/ThumbGit.png" width="427" height="240"align="center"/>
+  </a>
+</div>
+
 Esta é uma plataforma com receitas de diferentes chefs, todas com imagens, ingredientes, passo-a-passo e dicas. Os usuários conseguem ver todas as receitas registradas, assim como os chefs e, com uma conta de usuário, pode até adicionar suas próprias receitas.
 
 - Projeto desenvolvido durante o Bootcamp Launchbase.
