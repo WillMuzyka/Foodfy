@@ -1,5 +1,5 @@
 /*RECIPES*/
-body .text-most-accessed {
+.text-most-accessed {
 	font-size: 24px;
 	line-height: 28px;
 	font-weight: bold;
@@ -139,14 +139,15 @@ body .text-most-accessed {
 
 /* IMAGE GALLERY */
 .recipe .gallery {
-	display: grid;
-	grid-gap: 8px;
+	display: flex;
+	justify-content: end;
 	float: right;
 }
 
 .recipe .gallery img {
 	width: 50px;
 	height: 50px;
+	margin-left: 8px;
 	border-radius: 4px;
 	object-fit: cover;
 	cursor: pointer;

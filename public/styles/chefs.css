@@ -1,14 +1,17 @@
 .chefs {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-gap: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	transform: translateX(-30px);
+	width: calc(100% + 30px);
 }
 
 .chef {
 	display: grid;
+	width: 210px;
 	grid-template-columns: 64px 1fr;
-	grid-gap: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
+	margin-left: 20px;
 }
 
 .chef.card {
@@ -130,4 +133,11 @@ button.submit-form {
 
 .complete .recipeOwned a:hover {
 	filter: brightness(0.5);
+}
+
+/* MEDIA */
+@media(max-width: 590px) {
+	.chefs{
+		justify-content: center;
+	}
 }

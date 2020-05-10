@@ -14,17 +14,6 @@ showButtons.forEach((button, index) => button.addEventListener('click', () => {
 			button.innerHTML = "Mostrar")
 }))
 
-// change the number of columns in the gallery preview section
-// this is necessary because on the change of showing/hiding the text
-// this extra columns usually push the elements to the center
-// with this, the aesthetics of the page improved
-const galleryContainer = document.querySelector(".gallery")
-let colTC = ""
-for (let i = 0; i < galleryContainer.children.length; i++) {
-	colTC += "1fr "
-}
-galleryContainer.style.gridTemplateColumns = colTC
-
 /// highlight the current image that is being display on top
 const ImageGallery = {
 	highlight: document.querySelector(".highlight > img"),

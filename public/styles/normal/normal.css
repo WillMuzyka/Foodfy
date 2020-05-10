@@ -65,3 +65,20 @@ h2.text-most-accessed {
 body:not(#admin) .main section.chefs {
 	margin-top: 48px;
 }
+
+/* MEDIA */
+
+@media (max-width: 900px) {
+	.main .intro-block {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+	}
+	.main .intro-block img {
+		display: none;
+	}
+
+	.main .intro-text {
+		margin: 60px;
+	}
+}

@@ -15,46 +15,64 @@ body {
 	background: white;
 	font-family: "Roboto", sans-serif;
 	color: var(--color-letter);
-	display: grid;
-	grid-template: auto 1fr auto / 1fr;
-	min-height: 100vh;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .main {
-	margin: 0 200px 15px;
+	width: 100%;
+	flex: 1;
+	max-width: 1000px;
+	padding: 0 50px;
+	margin-bottom: 15px;
 	position: relative;
 }
 
 /* HEADER */
+header {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+}
+
 header .header-margin {
+	flex: 1;
 	position: relative;
-	margin: 0 200px;
+	max-width: 1000px;
 	display: flex;
 	align-items: center;
-	padding: 25px 0;
+	padding: 25px 50px;
 	min-height: 88px;
 }
 
 header .header-margin>a {
-	margin-right: 35px;
 	display: flex;
 	align-items: center;
 }
 
 header .header-margin>a img {
 	margin: 0;
+	margin-right: 30px;
 	object-fit: none;
+}
+
+.links {
+	max-width: 300px;
+	display: flex;
+	justify-content: space-between;
+	flex: 1;
 }
 
 .links a {
 	size: 16px;
 	line-height: 19px;
-	margin: 0 15px;
 	padding: 4px 0;
 	position: relative;
 }
 
-header>a {
+header .header-margin>a {
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -84,15 +102,53 @@ header>a {
 	transition: width 200ms cubic-bezier(1, 0.25, 0.60, 0.85);
 }
 
+
+/* FILTER */
+.searchBox {
+	margin-left: auto;
+}
+
+.searchBox form {
+	display: grid;
+	grid-template-columns: 1fr 95px;
+	grid-gap: 8px;
+	max-width: 300px;
+}
+
+.searchBox input[name="filter"] {
+	font-size: 14px;
+	color: var(--color-letter-rights);
+	border: 1px solid #DDD;
+	padding: 10px 15px;
+	border-radius: 4px;
+}
+
+button.filterButton {
+	border-radius: 4px;
+	color: white;
+	padding: 10px 20px;
+	cursor: pointer;
+
+	transition: all 0.3s;
+}
+
+@media(max-width: 800px) {
+	.searchBox {
+		visibility: hidden;
+		display: none;
+	}
+}
+
 /*FOOTER*/
-body footer {
+footer {
+	width: 100vw;
 	background: var(--color-footer-bg);
 	margin-top: 30px;
 	padding: 23px;
 	text-align: center;
 }
 
-body footer p {
+footer p {
 	color: var(--color-letter-rights);
 	font-size: 14px;
 	line-height: 16px;
@@ -121,50 +177,16 @@ body footer p {
 }
 
 /*AJUST WINDOW SIZE*/
-@media (max-width: 1200px) {
-	.recipes {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
 @media (max-width: 1000px) {
 	.recipes {
-		display: grid;
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(2, 1fr) !important;
 	}
 }
 
-/* FILTER */
-.searchBox {
-	margin: 0 200px;
-	padding: 25px 0;
-	position: absolute;
-	right: 0;
-	top: 0
-}
-
-.searchBox form {
-	display: grid;
-	grid-template-columns: 1fr 95px;
-	grid-gap: 8px;
-}
-
-.searchBox input[name="filter"] {
-	font-size: 14px;
-	color: var(--color-letter-rights);
-	border: 1px solid #DDD;
-	padding: 10px 15px;
-	border-radius: 4px;
-}
-
-button.filterButton {
-	border-radius: 4px;
-	color: white;
-	padding: 10px 20px;
-	cursor: pointer;
-
-	transition: all 0.3s;
+@media (max-width: 700px) {
+	.recipes {
+		grid-template-columns: 1fr !important;
+	}
 }
 
 /* PAGINATION */

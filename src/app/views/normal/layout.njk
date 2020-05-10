@@ -11,8 +11,12 @@
 
   <body>
     {% include "parts/messages.njk" %}
-    {% include "parts/headerNormal.njk" %}
-    {% block searchBlock %}{% endblock %}
+		<header>
+			<section class=header-margin>
+				{% include "parts/headerNormal.njk" %}
+				{% block searchBlock %}{% endblock %}
+			</section>
+		</header>
 
     <div class="main">
       {% block content %}{% endblock %}
