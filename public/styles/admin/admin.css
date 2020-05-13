@@ -203,10 +203,7 @@ input[type='file'] {
 
 /* EXIT BUTTON */
 .exit {
-	position: absolute;
-	right: 32px;
-	top: 50%;
-	transform: translateY(-50%);
+	margin-left: 16px;
 }
 
 .exit .user-exit {

@@ -1,19 +1,10 @@
-<header>
-  <div class="header-margin">
-    <a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
-    <div class="links">
-      <a href="/admin/recipes">Receitas</a>
-      {% if session.admin %}
-      <a href="/admin/chefs">Chefs</a>
-      <a href="/users/index">Usuários</a>
-      {% else %}
-      <a href="/users/{{ session.userId }}">Conta</a>
-      {% endif %}
-    </div>
-  </div>
-  <div class="exit">
-    <form action="/session/logout" method="POST">
-      <button type="submit" class="user-exit">SAIR</button>
-    </form>
-  </div>
-</header>
+<a href="/admin/recipes"><img src="/assets/logoWhite.png" alt="Foodfy"></a>
+<div class="links">
+	<a href="/admin/recipes">Receitas</a>
+	{% if session.admin %}
+	<a href="/admin/chefs">Chefs</a>
+	<a href="/users/index">Usuários</a>
+	{% else %}
+	<a href="/users/{{ session.userId }}">Conta</a>
+	{% endif %}
+</div>
